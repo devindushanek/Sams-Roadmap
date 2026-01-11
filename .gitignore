@@ -22,3 +22,20 @@ Thumbs.db
 node_modules/
 dist/
 .vite/
+
+# Database
+*.db
+
+# Logs & Debug Files
+*.log
+
+# Temporary Helper Scripts
+git_pass.bat
+run_git.bat
+
+# Debug Output Files
+*_output.txt
+*_status*.txt
+*_result*.txt
+*_debug*.txt
+*_check*.txt
