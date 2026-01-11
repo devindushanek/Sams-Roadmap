@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam's Snack Bar | Project Vision & Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Brand Colors */
+            --sams-green: #40ad48;
+            --sams-teal: #1ec8ce;
+            --sams-yellow: #ffc50a;
+            --sams-orange: #fa4b06;
+            --sams-pink: #ec008b;
+            --sams-blue: #0073e1;
+            --sams-water: #b4e0df;
+
+            /* Theme Variables - Dark (Default) */
+            --bg-main: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #fdfcf0;
+            /* Creamy off-white */
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            border-color: var(--sams-teal);
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .logo-img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .card::before {
+            content: 'View Full Details →';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--sams-teal);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--sams-teal);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .cat-branding .card-icon {
+            background: var(--sams-pink);
+        }
+
+        .cat-ops .card-icon {
+            background: var(--sams-yellow);
+            color: #000;
+        }
+
+        .cat-finance .card-icon {
+            background: var(--sams-green);
+        }
+
+        .cat-digital .card-icon {
+            background: var(--sams-blue);
+        }
+
+        .next-steps {
+            list-style: none;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .next-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .next-steps li::before {
+            content: '→';
+            color: var(--sams-teal);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .tag-status {
+            background: rgba(30, 200, 206, 0.15);
+            color: var(--sams-teal);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-bottom: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">☀️</span>
+                <span id="themeText">Light Mode</span>
+            </button>
+            <div class="logo-container">
+                <img src="sams-logo.png" alt="Sam's Logo" class="logo-img">
+            </div>
+            <h1>Project Vision & Roadmap</h1>
+            <p>A comprehensive overview of our progress, impressions, and the path toward the April 2026 takeover of
+                Clearwater Lake's premier destination.</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Branding & Identity -->
+            <a href="Branding-Detail.html" class="card cat-branding">
+                <div class="tag tag-status">Vibe Check: High Energy</div>
+                <div class="card-icon">🎨</div>
+                <h2>Branding & Identity</h2>
+                <p><strong>Impression:</strong> The "First Job Nostalgia" theme is brilliant. It moves away from generic
+                    nautical tropes into a curated, vibrant aesthetic.</p>
+                <ul class="next-steps">
+                    <li>Finalize the Brand Style Guide.</li>
+                    <li>Draft social media templates.</li>
+                    <li>Design "Activity Booking" signage.</li>
+                </ul>
+            </a>
+
+            <!-- Operations & Partnership -->
+            <a href="Operations-Detail.html" class="card cat-ops">
+                <div class="tag tag-status">Structure: Balanced</div>
+                <div class="card-icon">👥</div>
+                <h2>Operations & Partnership</h2>
+                <p><strong>Impression:</strong> The 10/40/25/25 split is well-balanced, leveraging Jeanette's culinary
+                    skill
+                    and Randy's facility management.</p>
+                <ul class="next-steps">
+                    <li>Incorporate new Partner Drafts.</li>
+                    <li>Define "Evening Bistro" workflow.</li>
+                    <li>Draft seasonal staffing schedule.</li>
+                </ul>
+            </a>
+
+            <!-- Financial Strategy -->
+            <a href="Finance-Detail.html" class="card cat-finance">
+                <div class="tag tag-status">Status: Categorical Rethink</div>
+                <div class="card-icon">📈</div>
+                <h2>Financial Strategy</h2>
+                <p><strong>Impression:</strong> We are moving beyond generic projections to a detailed,
+                    category-by-category growth model grounded in actual historical performance.</p>
+                <ul class="next-steps">
+                    <li>Analyze historical revenue trends.</li>
+                    <li>Phase services by margin potential.</li>
+                    <li>Model high-margin rental growth.</li>
+                </ul>
+            </a>
+
+            <!-- Digital Systems -->
+            <a href="Digital-Detail.html" class="card cat-digital">
+                <div class="tag tag-status">Focus: Automation</div>
+                <div class="card-icon">⚡</div>
+                <h2>Digital Systems</h2>
+                <p><strong>Impression:</strong> Your role in creating automated systems will be the differentiator for
+                    high-volume management.</p>
+                <ul class="next-steps">
+                    <li>Research integrated POS/Booking.</li>
+                    <li>Map out VisitSams.ca user journey.</li>
+                    <li>Plan EV Charging integration.</li>
+                </ul>
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Sam's Snack Bar Planning Assistant | Part of the DevLabs Ecosystem</p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            themeIcon.innerText = newTheme === 'dark' ? '☀️' : '🌙';
+            themeText.innerText = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+            // Save preference
+            localStorage.setItem('sams-theme', newTheme);
+        });
+
+        // Load preference
+        const savedTheme = localStorage.getItem('sams-theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            themeIcon.innerText = savedTheme === 'dark' ? '☀️' : '🌙';
+            themeText.innerText = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+    </script>
+</body>
+
+</html>

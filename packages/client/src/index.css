@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Default Theme (Dark / Neutral) - RGB values for opacity support */
+    --bg-background: 10 10 10;
+    --bg-surface: 30 30 30;
+    --color-primary: 139 92 246;
+    --color-secondary: 148 163 184;
+    --color-accent: 56 189 248;
+    --text-primary: 240 240 240;
+    --text-secondary: 160 160 160;
+}
+
+@layer base {
+    body {
+        @apply bg-background text-text-primary antialiased;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+/* Glassmorphism utilities */
+.glass {
+    @apply bg-surface/70 backdrop-blur-md border border-white/10;
+}
+
+.glass-card {
+    @apply glass rounded-xl p-6 shadow-lg;
+}

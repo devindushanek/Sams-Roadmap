@@ -1,0 +1,258 @@
+{
+  "name": "Thesis Book 2025-07-02.indd",
+  "fullPath": "C:\\Users\\devin\\Desktop\\Thesis recent\\Thesis Book 2025-07-02.indd",
+  "pageCount": 103,
+  "spreadCount": 53,
+  "modified": true,
+  "documentPreferences": {
+    "pageWidth": 10,
+    "pageHeight": 10,
+    "facingPages": true,
+    "pagesPerDocument": 103
+  },
+  "bleed": {
+    "top": 0,
+    "bottom": 0,
+    "inside": 0,
+    "outside": 0
+  },
+  "slug": {
+    "top": 0,
+    "bottom": 0,
+    "inside": 0,
+    "outside": 0
+  },
+  "layers": [
+    {
+      "name": "Layer 1",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "masterSpreads": [
+    {
+      "name": "A-Parent",
+      "baseName": "Parent",
+      "pageCount": 2
+    },
+    {
+      "name": "B-Parent",
+      "baseName": "Parent",
+      "pageCount": 2
+    }
+  ],
+  "styles": {
+    "paragraphStyles": [
+      "[No Paragraph Style]",
+      "[Basic Paragraph]",
+      "Thesis Body Text",
+      "Thesis Standout",
+      "Block Annotations",
+      "Block Annotations black",
+      "Thesis Body Text (White)",
+      "Paragraph Style 1",
+      "Heading",
+      "Subheading",
+      "Paragraph",
+      "Bulleted List",
+      "Numbered List 1",
+      "Numbered List 2"
+    ],
+    "characterStyles": [
+      "[None]",
+      "Part Title",
+      "Part",
+      "Section Title",
+      "Section Detail",
+      "Captions and Body Titles (White)",
+      "Captions and Body Titles (Black)"
+    ]
+  },
+  "fonts": [
+    {
+      "name": "Ropa Sans Pro\tRegularRegular",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tBoldBold",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tBold ItalicBold Italic",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tMedium ItalicMedium Italic",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tLightLight",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tBlackBlack",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tLight ItalicLight Italic",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans Pro\tItalicItalic",
+      "fontFamily": "Ropa Sans Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans\tRegularRegular",
+      "fontFamily": "Ropa Sans",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Ropa Sans\tItalicItalic",
+      "fontFamily": "Ropa Sans",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Minion Pro\tRegularRegular",
+      "fontFamily": "Minion Pro",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Minecraft (OTF)\tItalicItalic",
+      "fontFamily": "Minecraft (OTF)",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Minecraft (OTF)\tBoldBold",
+      "fontFamily": "Minecraft (OTF)",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tRegularRegular",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tMediumMedium",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tBoldBold",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tLightLight",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tBlackBlack",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tMedium ItalicMedium Italic",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    },
+    {
+      "name": "Brandon Grotesque\tRegular ItalicRegular Italic",
+      "fontFamily": "Brandon Grotesque",
+      "status": "INSTALLED"
+    }
+  ],
+  "colors": [
+    "None",
+    "Registration",
+    "Paper",
+    "Black",
+    "C=100 M=0 Y=0 K=0",
+    "C=0 M=100 Y=0 K=0",
+    "C=0 M=0 Y=100 K=0",
+    "C=15 M=100 Y=100 K=0",
+    "C=75 M=5 Y=100 K=0",
+    "R=10 G=106 B=191",
+    "C=100 M=90 Y=10 K=0",
+    "R=3 G=16 B=89",
+    "Green",
+    "Light Blue",
+    "Light",
+    "Light background",
+    "Warm Yellow",
+    "Orange",
+    "Red Orange",
+    "R=181 G=0 B=0",
+    "R=122 G=35 B=50",
+    "Light Brown",
+    "Dark Brown",
+    "R=246 G=187 B=193",
+    "R=242 G=127 B=148",
+    "R=240 G=97 B=126",
+    "R=244 G=158 B=178",
+    "R=238 G=73 B=125",
+    "R=233 G=48 B=119",
+    "R=226 G=34 B=113",
+    "R=212 G=31 B=104",
+    "R=192 G=35 B=103",
+    "R=188 G=36 B=98",
+    "R=170 G=36 B=91",
+    "R=245 G=225 B=231",
+    "R=238 G=197 B=211",
+    "R=233 G=181 B=199",
+    "R=224 G=160 B=173",
+    "R=212 G=108 B=123",
+    "R=192 G=78 B=90",
+    "R=186 G=71 B=95",
+    "R=164 G=52 B=80",
+    "R=135 G=34 B=73",
+    "R=239 G=224 B=224",
+    "R=205 G=161 B=184",
+    "R=216 G=135 B=184",
+    "R=194 G=89 B=160",
+    "R=183 G=79 B=155",
+    "R=167 G=82 B=158",
+    "R=245 G=243 B=249",
+    "R=217 G=189 B=219",
+    "R=190 G=161 B=204",
+    "R=37 G=64 B=143",
+    "R=251 G=249 B=237",
+    "R=0 G=91 B=123 1",
+    "R=153 G=31 B=194 1",
+    "C=0 M=0 Y=1 K=11",
+    "New Green",
+    "Dark Blue",
+    "AC Orange",
+    "[Black] 90%",
+    "background",
+    "R=142 G=132 B=184",
+    "R=100 G=93 B=167",
+    "R=89 G=77 B=158",
+    "R=84 G=59 B=148",
+    "R=249 G=245 B=250",
+    "R=235 G=211 B=231",
+    "R=213 G=175 B=210",
+    "R=201 G=153 B=197",
+    "R=183 G=128 B=183",
+    "R=163 G=105 B=170",
+    "R=137 G=85 B=161",
+    "R=175 G=109 B=146",
+    "R=147 G=73 B=125",
+    "R=123 G=51 B=103",
+    "R=249 G=229 B=83",
+    "C=0 M=0 Y=0 K=100",
+    "R=217 G=121 B=4",
+    "R=41 G=0 B=218"
+  ],
+  "preflightErrors": [
+    "Preflight check failed: Invalid value for parameter 'appliedProfile' of method 'add'. Expected PreflightProfile, but received nothing."
+  ]
+}

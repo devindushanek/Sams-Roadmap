@@ -1,0 +1,213 @@
+{
+  "citations": [
+    {
+      "text": "(2016)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 75
+    },
+    {
+      "text": "(2022)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 75
+    },
+    {
+      "text": "(2010)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 75
+    },
+    {
+      "text": "(2014)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 75
+    },
+    {
+      "text": "(2020)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 108
+    },
+    {
+      "text": "(2028)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 111
+    },
+    {
+      "text": "(4)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 245
+    },
+    {
+      "text": "(4)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 246
+    },
+    {
+      "text": "(Mongiardino & Simone, 2016)",
+      "style": "APA",
+      "storyIndex": 262
+    },
+    {
+      "text": "(Dahmen & Ochsendorfs, 2012)",
+      "style": "APA",
+      "storyIndex": 262
+    },
+    {
+      "text": "(Williams, 2024)",
+      "style": "APA",
+      "storyIndex": 488
+    },
+    {
+      "text": "(Williams, 2024)",
+      "style": "APA",
+      "storyIndex": 488
+    },
+    {
+      "text": "(Yashar, 2016)",
+      "style": "APA",
+      "storyIndex": 491
+    },
+    {
+      "text": "(Delijani, 2024)",
+      "style": "APA",
+      "storyIndex": 492
+    },
+    {
+      "text": "(Delijani, 2024)",
+      "style": "APA",
+      "storyIndex": 498
+    },
+    {
+      "text": "(Warmburg, 2020)",
+      "style": "APA",
+      "storyIndex": 508
+    },
+    {
+      "text": "(2024)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2024)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2023)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2024)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(1998)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2016)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2024)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2022)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(10)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2018)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(3)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2009)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(2018)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 509
+    },
+    {
+      "text": "(1989)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 511
+    },
+    {
+      "text": "(42)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 511
+    },
+    {
+      "text": "(8)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 721
+    },
+    {
+      "text": "(2)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 722
+    },
+    {
+      "text": "(4)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 723
+    },
+    {
+      "text": "(4)",
+      "style": "Chicago/Numeric",
+      "storyIndex": 724
+    }
+  ],
+  "footnotes": [
+    
+  ],
+  "endnotes": [
+    
+  ],
+  "bibliography": {
+    "page": "6",
+    "preview": "RESOURCES\t23",
+    "frameId": 71638
+  },
+  "issues": [
+    {
+      "type": "STYLE_INCONSISTENCY",
+      "message": "Multiple citation styles detected: Chicago/Numeric, APA",
+      "severity": "HIGH"
+    }
+  ],
+  "statistics": {
+    "totalCitations": 35,
+    "totalFootnotes": 0,
+    "uniqueAuthors": [
+      "Mongiardino",
+      "Dahmen",
+      "Williams",
+      "Yashar",
+      "Delijani",
+      "Warmburg"
+    ],
+    "citationStyles": [
+      "Chicago/Numeric",
+      "APA"
+    ]
+  }
+}

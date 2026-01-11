@@ -1,0 +1,4 @@
+src/App.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Dashboard.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Layout.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Layout.tsx(3,74): error TS6133: 'User' is declared but its value is never read.

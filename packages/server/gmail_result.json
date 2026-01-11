@@ -1,0 +1,28 @@
+{
+  "count": 5,
+  "messages": [
+    {
+      "id": "19ae0b770f834d88",
+      "threadId": "19abbda4d3400aec"
+    },
+    {
+      "id": "19ae0b18e877d0a2",
+      "threadId": "19ae0b18e877d0a2"
+    },
+    {
+      "id": "19ae0765c4c57ba0",
+      "threadId": "19ae0765c4c57ba0"
+    },
+    {
+      "id": "19ae05287fce8a89",
+      "threadId": "19ae02548f1adb26"
+    },
+    {
+      "id": "19ae035367ac778e",
+      "threadId": "19a9cf783b83cb96"
+    }
+  ],
+  "firstEmail": {
+    "subject": "RE: Azure and DM payment question"
+  }
+}

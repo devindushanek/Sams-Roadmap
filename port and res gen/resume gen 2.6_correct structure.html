@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-cream">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLabs | Modular Resume Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/html-to-docx@1.8.0/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        .font-heading { font-family: 'Poppins', sans-serif; letter-spacing: -0.03em; }
+        .font-body { font-family: 'Varela Round', sans-serif; }
+        body { font-family: 'Varela Round', sans-serif; background-color: #f7f4ed; }
+        
+        .bg-lab-green { background-color: #20c997; }
+        .bg-lab-green:hover { background-color: #1aa883; }
+
+        .editor-section { background-color: white; border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05); break-inside: avoid; margin-bottom: 1rem; }
+        .editor-input { margin-top: 0.25rem; display: block; width: 100%; padding: 0.5rem 0.75rem; background-color: #f9fafb; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; line-height: 1.25rem; color: #1f2937; }
+        .editor-input::placeholder { color: #9ca3af; }
+        
+        .control-btn { background-color: #f3f4f6; color: #4b5563; border-radius: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; transition: all .2s; border: 1px solid #d1d5db; }
+        .control-btn:hover { background-color: #e5e7eb; border-color: #9ca3af; }
+
+        .delete-btn { background-color: #f3f4f6; color: #9ca3af; border-radius: 9999px; transition: all .2s; flex-shrink: 0; border: 1px solid #e5e7eb; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+        .delete-btn:hover { background-color: #fee2e2; color: #ef4444; border-color: #fca5a5; }
+
+        .clear-btn { font-size: 0.75rem; color: #6b7280; text-decoration: underline; background: none; border: none; cursor: pointer; }
+        .clear-btn:hover { color: #1f2937; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 50; backdrop-filter: blur(4px); }
+        .modal-content { background-color: white; border-radius: 1rem; max-width: 90%; width: 700px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+        .modal-header { padding: 1.5rem; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; position: sticky; top: 0; background-color: white; z-index: 10; border-top-left-radius: 1rem; border-top-right-radius: 1rem;}
+        .modal-body { padding: 1.5rem; overflow-y: auto; }
+
+        details > summary { list-style: none; cursor: pointer; display: flex; align-items: center; transition: none; }
+        details[open] > summary { margin-bottom: 1rem; }
+        details > summary::-webkit-details-marker { display: none; }
+        details:not([open]) > summary { height: 3rem; padding-bottom: 0; }
+        details:not([open]) .section-content { display: none; }
+
+        #suggest-edit-btn { position: absolute; display: none; background: linear-gradient(to right, #6366f1, #8b5cf6); color: white; border-radius: 0.375rem; padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 600; border: none; cursor: pointer; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); z-index: 100; }
+        
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.5rem; align-items: center; }
+        .tag-bubble { cursor: pointer; display: inline-flex; align-items: center; background-color: #f3f4f6; color: #4b5563; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; border: 1px solid #e5e7eb; transition: all 0.2s; }
+        .tag-bubble.selected { background-color: #e0e7ff; color: #4338ca; border-color: #c7d2fe; }
+        .tag-bubble:hover { transform: translateY(-1px); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .tag-add-input { border: none; background: transparent; font-size: 0.75rem; outline: none; padding: 0.25rem 0.5rem; width: 100px; }
+
+    </style>
+     <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { 'cream': '#f7f4ed', 'lab-teal': '#20c997', 'lab-magenta': '#e83e8c', 'lab-gold': '#ffc107', 'lab-purple': '#6f42c1' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream text-gray-800 font-body">
+    <div id="app-content">
+        <!-- Header -->
+        <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm shadow-md">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                 <h1 class="font-heading text-2xl font-black text-black">
+                    DEV<span style="color:#20c997">L</span><span style="color:#e83e8c">A</span><span style="color:#ffc107">B</span><span style="color:#6f42c1">S</span> <span class="text-gray-400 font-light">| Resume Generator</span>
+                </h1>
+                <div class="text-right">
+                    <button id="save-button" class="flex items-center bg-black text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-800 disabled:bg-slate-500 transition-all">
+                        <span id="save-button-text">Save Master Data</span>
+                    </button>
+                    <p class="text-xs text-slate-500 mt-1">Data is saved locally in this browser.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+            <!-- View 1: Data Editor -->
+            <div id="editor-view">
+                <div class="flex justify-between items-center mb-8">
+                     <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <button id="section-visibility-btn" class="control-btn">Manage Sections</button>
+                            <div id="section-visibility-dropdown" class="absolute hidden mt-2 w-64 bg-white rounded-md shadow-lg z-20 border"></div>
+                        </div>
+                         <button id="manage-tags-btn" class="control-btn">Manage Tags & Presets</button>
+                    </div>
+                    <button data-action="show-generator" class="bg-lab-green text-white font-bold py-2 px-6 rounded-lg shadow-md transition-transform hover:scale-105 flex items-center">
+                        Generate Resume <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                </div>
+                <div id="resume-editor-container" class="md:columns-2 md:gap-x-8"></div>
+            </div>
+
+            <!-- View 2: Generator & Preview -->
+            <div id="generator-view" class="hidden">
+                 <div class="mb-8">
+                    <button data-action="show-editor" class="control-btn flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path></svg> Back to Editor
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                     <div class="space-y-6 lg:col-span-1">
+                        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+                            <h2 class="text-2xl font-heading font-bold mb-4 text-gray-900">Generate New Resume</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="audience-preset" class="block text-sm font-medium text-gray-700">Audience Preset</label>
+                                    <select id="audience-preset" class="editor-input w-full"></select>
+                                </div>
+                                <div>
+                                    <label for="format-preset" class="block text-sm font-medium text-gray-700">Format</label>
+                                    <select id="format-preset" class="editor-input"><option value="resume">1-Page Resume</option><option value="cv">Full CV</option></select>
+                                </div>
+                            </div>
+                            <textarea id="job-description" class="w-full h-28 p-3 border rounded-lg bg-gray-50 border-gray-300 text-gray-800 placeholder-gray-500" placeholder="For custom presets, describe the audience or paste a job description here..."></textarea>
+                            <div class="mt-4 flex items-center">
+                                <input id="ai-rewrite-toggle" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                                <label for="ai-rewrite-toggle" class="ml-2 block text-sm text-gray-900">Let AI tailor content for audience</label>
+                            </div>
+                            <button id="generate-button" class="mt-4 w-full flex items-center justify-center bg-lab-green text-white font-bold py-3 px-6 rounded-lg shadow-md transition-transform hover:scale-105"><span id="generate-button-text">Generate</span></button>
+                            <div id="generator-error" class="text-red-600 mt-2 text-sm"></div>
+                        </div>
+                     </div>
+                    <div class="space-y-6 lg:col-span-1">
+                        <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-lg">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 id="preview-title" class="text-2xl font-heading font-bold text-gray-900">Preview</h2>
+                                <div id="export-container" class="relative hidden">
+                                    <button id="export-dropdown-btn" class="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg text-sm transition-all flex items-center">Export <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    <div id="export-options" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden">
+                                        <a href="#" id="export-word" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Word (.docx)</a>
+                                        <a href="#" id="export-pdf" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">PDF (.pdf)</a>
+                                        <a href="#" id="export-excel" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Excel (.csv)</a>
+                                        <a href="#" id="export-html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">HTML (.html)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="resume-preview-wrapper" class="bg-white text-black p-8 border rounded-lg border-gray-200">
+                                <div id="resume-preview" class="prose max-w-none"><div class="text-center text-slate-500 p-20">Select an audience and format, then click Generate.</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="preset-manager-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header"><div class="flex justify-between items-center"><h3 class="text-2xl font-heading font-bold text-gray-900">Manage Presets & Tags</h3><button id="close-preset-modal-btn" class="text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button></div></div>
+            <div class="modal-body">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Audience Presets</h4>
+                        <div id="preset-list" class="space-y-4 mb-6 max-h-48 overflow-y-auto pr-2"></div>
+                        <div class="bg-gray-50 p-4 rounded-lg"><h4 class="text-lg font-bold mb-2">Add New Preset</h4><input id="new-preset-name" type="text" class="editor-input mb-2" placeholder="Preset Name (e.g., 'UX Design')"><div id="new-preset-tag-container"></div><button id="add-preset-btn" class="control-btn mt-4">+ Add Preset</button></div>
+                    </div>
+                     <div>
+                        <h4 class="text-lg font-bold mb-2">Master Tag List</h4>
+                        <div id="master-tag-list-display" class="space-y-2 mb-6 max-h-48 overflow-y-auto pr-2"></div>
+                        <div class="bg-gray-50 p-4 rounded-lg"><h4 class="text-lg font-bold mb-2">Add New Tag</h4><input id="new-master-tag" type="text" class="editor-input" placeholder="New reusable tag..."><button id="add-master-tag-btn" class="control-btn mt-2">+ Add Tag</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="suggestions-modal" class="modal-overlay hidden">
+        <div class="modal-content p-8"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-heading font-bold text-gray-900">AI Writing Suggestion</h3><button id="close-suggestions-modal-btn" class="text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button></div><div id="suggestions-content" class="mb-6 space-y-4"></div><div class="flex justify-end"><button id="use-suggestion-btn" class="hidden bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700">Use this suggestion</button></div></div>
+    </div>
+    
+    <button id="suggest-edit-btn">✨ Suggest Edit</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let appData = { resume: {}, presets: {}, masterTags: new Set(), visibleSections: [] };
+            let savedSelection = null;
+            let newPresetTags = [];
+            const LOCAL_STORAGE_KEY = 'modular-resume-data-v15';
+
+            const ui = {
+                editorView: document.getElementById('editor-view'),
+                generatorView: document.getElementById('generator-view'),
+                editorContainer: document.getElementById('resume-editor-container'),
+                previewContainer: document.getElementById('resume-preview'),
+                previewTitle: document.getElementById('preview-title'),
+                jobDescription: document.getElementById('job-description'),
+                audiencePreset: document.getElementById('audience-preset'),
+                formatPreset: document.getElementById('format-preset'),
+                generateButton: document.getElementById('generate-button'),
+                generateButtonText: document.getElementById('generate-button-text'),
+                saveButton: document.getElementById('save-button'),
+                saveButtonText: document.getElementById('save-button-text'),
+                exportContainer: document.getElementById('export-container'),
+                exportDropdownBtn: document.getElementById('export-dropdown-btn'),
+                exportOptions: document.getElementById('export-options'),
+                exportPdfButton: document.getElementById('export-pdf'),
+                exportWordButton: document.getElementById('export-word'),
+                exportExcelButton: document.getElementById('export-excel'),
+                exportHtmlButton: document.getElementById('export-html'),
+                generatorError: document.getElementById('generator-error'),
+                manageTagsBtn: document.getElementById('manage-tags-btn'),
+                presetModal: document.getElementById('preset-manager-modal'),
+                closePresetModalBtn: document.getElementById('close-preset-modal-btn'),
+                presetList: document.getElementById('preset-list'),
+                newPresetName: document.getElementById('new-preset-name'),
+                newPresetTagContainer: document.getElementById('new-preset-tag-container'),
+                addPresetBtn: document.getElementById('add-preset-btn'),
+                masterTagListDisplay: document.getElementById('master-tag-list-display'),
+                newMasterTag: document.getElementById('new-master-tag'),
+                addMasterTagBtn: document.getElementById('add-master-tag-btn'),
+                aiRewriteToggle: document.getElementById('ai-rewrite-toggle'),
+                suggestEditBtn: document.getElementById('suggest-edit-btn'),
+                suggestionsModal: document.getElementById('suggestions-modal'),
+                suggestionsContent: document.getElementById('suggestions-content'),
+                closeSuggestionsModalBtn: document.getElementById('close-suggestions-modal-btn'),
+                useSuggestionBtn: document.getElementById('use-suggestion-btn'),
+                sectionVisibilityBtn: document.getElementById('section-visibility-btn'),
+                sectionVisibilityDropdown: document.getElementById('section-visibility-dropdown'),
+                addCustomSectionBtn: document.getElementById('add-custom-section-btn'),
+            };
+            
+            const initialResumeData = {
+                personal: { name: 'Devin Dushanek', credentials: 'M.Arch. Cand., B.EnvD.', email: 'dushanekd@gmail.com', phone: '+1 [204] 620 2642', location: 'Winnipeg, Manitoba' },
+                summary: { default: "7 years of experience using inclusive design methods to improve the lived experience of people from different cultural backgrounds and across the disability spectrum... Driven by a curiosity for problem-solving through making things, I am working to develop a conscious approach to architecture that encourages connection to self, others, and the environments that surround them." },
+                experience: [ { id: 'exp1', title: 'VP - Design', company: 'Adaptability Canada [Remote]', dates: '06/2023 - Present', points: 'Leading research and design for future-forward best practices in inclusive design...\nCreation of Inclusive Design Guides and other accessible products and technology...', tags: ['leadership', 'inclusive-design', 'consulting', 'professional'] }, { id: 'exp2', title: 'Research Assistant', company: 'University of Manitoba', dates: '01/2024 - 06/2024', points: 'For the development of a prefab home building and training facility in York Factory First Nation...', tags: ['academic', 'research', 'community'] }, { id: 'exp3', title: 'Design + Making', company: 'Freelance', dates: '07/2020 - 09/2022', points: "Shared in clients' visions for the design and building of furniture...\nConsultation for home/commercial renovations...", tags: ['freelance', 'making', 'woodworking', 'design'] }, ],
+                education: [ { id: 'edu1', degree: 'Master of Architecture', school: 'University of Manitoba', dates: '2022-2025', tags: ['academic', 'architecture'] }, { id: 'edu2', degree: 'Bachelor of Environmental Design, Architecture', school: 'University of Manitoba', dates: '2013-2018', tags: ['academic', 'architecture'] } ],
+                achievements: [ { id: 'ach1', text: "Dean's Honour List", org: "University of Manitoba", date: "2023-2024", tags: ["academic"] }, { id: 'ach2', text: "First to obtain RHFAC Professional designation in the prairies", org: "Rick Hansen Foundation", date: "2018", tags: ["professional", "inclusive-design"] } ],
+                skills: [ { id: 'ski1', category: 'Research & Strategy', items: 'research + analysis, collaboration, problem-solving, synthesis + theory', tags: ['professional', 'academic'] }, { id: 'ski2', category: 'Design & Software', items: 'graphic visualization, figma, photoshop, indesign, illustrator', tags: ['professional', 'design'] } ],
+                projects: [ { id: 'proj1', name: 'Diversity Match', role: 'UX/UI Design', tags: ['professional', 'design']}],
+                publications: [ { id: 'pub1', title: 'Constructing the Pluriverse', journal: 'Public Journal', tags: ['academic', 'publication']}],
+                service: [ { id: 'serv1', role: 'Mentor', org: 'The Met School', tags: ['community', 'mentorship']}],
+                certifications: [ { id: 'cert1', name: 'LEED AP', org: 'LEED', tags: ['professional', 'sustainability']}],
+                courses: [ { id: 'cour1', name: 'Real Estate Masterclass', org: 'Keyspire', tags: ['professional', 'development']}],
+                customSections: [],
+            };
+            const initialPresets = { 'custom': { name: 'Custom (use text box)', tags: [] }, 'inclusive-design': { name: 'Inclusive Design Consulting', tags: ['inclusive-design', 'consulting'] }, 'architecture': { name: 'Architecture Firm', tags: ['architecture', 'design', 'making'] }, 'academic': { name: 'Academic / Research', tags: ['academic', 'research'] }, 'community': { name: 'Community/Non-Profit', tags: ['community', 'service'] }, 'everything': { name: 'Everything', tags: [] }, };
+            
+            appData.visibleSections = Object.keys(initialResumeData).filter(k => k !== 'personal' && k !== 'summary' && k !== 'customSections');
+
+            function updateAllTags() {
+                appData.masterTags.clear();
+                Object.values(appData.presets).forEach(preset => (preset.tags || []).forEach(tag => appData.masterTags.add(tag)));
+                Object.values(appData.resume).forEach(section => { if (Array.isArray(section)) { section.forEach(item => (item.tags || []).forEach(tag => appData.masterTags.add(tag))); } });
+                renderMasterTagList();
+            }
+            
+            function renderMasterTagList() {
+                const sortedTags = Array.from(appData.masterTags).sort();
+                ui.masterTagListDisplay.innerHTML = sortedTags.map(tag => `<div class="flex justify-between items-center text-sm p-2 bg-gray-100 rounded-md"><span>${tag}</span><button class="delete-btn w-5 h-5" data-action="delete-master-tag" data-tag-value="${tag}">&times;</button></div>`).join('');
+            }
+            
+            function loadData() {
+                const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                let dataIsValid = false;
+                if (savedData) { try { const parsed = JSON.parse(savedData); if (parsed && parsed.resume && parsed.presets) { appData.resume = { ...initialResumeData, ...parsed.resume }; appData.presets = { ...initialPresets, ...parsed.presets }; if(parsed.visibleSections) appData.visibleSections = parsed.visibleSections; Object.values(appData.resume).forEach(section => { if(Array.isArray(section)) { section.forEach(item => { if (typeof item.tags === 'string') { item.tags = item.tags.split(',').map(t => t.trim()).filter(Boolean); } }); }}); dataIsValid = true; } } catch (e) { console.error("Failed to parse saved data, resetting.", e); } }
+                if (!dataIsValid) { appData.resume = JSON.parse(JSON.stringify(initialResumeData)); appData.presets = JSON.parse(JSON.stringify(initialPresets)); }
+                if(!appData.resume.customSections) appData.resume.customSections = [];
+                updateAllTags();
+            }
+            
+            function saveData() { localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ resume: appData.resume, presets: appData.presets, visibleSections: appData.visibleSections })); ui.saveButtonText.textContent = 'Saved!'; setTimeout(() => { ui.saveButtonText.textContent = 'Save Master Data'; }, 1500); }
+
+            function renderTagCloud(itemTags = [], isPresetContext = false) {
+                const allTags = Array.from(appData.masterTags).sort();
+                let html = '<div class="mt-2"><label class="text-xs text-gray-500">Tags</label><div class="tag-cloud">';
+                html += allTags.map(tag => `<span class="tag-bubble ${itemTags.includes(tag) ? 'selected' : ''}" data-action="toggle-tag" data-tag-value="${tag}">${tag}</span>`).join('');
+                html += `<input type="text" class="tag-add-input" placeholder="Add new..." data-action="add-new-tag">`;
+                html += '</div></div>';
+                return html;
+            }
+
+            function renderSection(title, key, itemTemplate, addBtnText, isCustom=false) {
+                const items = isCustom ? appData.resume.customSections.find(s=>s.key === key).items : appData.resume[key] || [];
+                const itemsHtml = items.map(item => itemTemplate(item, key)).join('');
+                const datasetKey = isCustom ? `data-custom-key="${key}"` : `data-section="${key}"`;
+
+                return `<div class="editor-section">
+                            <details open data-section-key="${key}">
+                                <summary class="flex justify-between items-center w-full">
+                                    <h3 class="text-xl font-heading font-bold text-gray-800">${title}</h3>
+                                    <div class="flex items-center">
+                                        ${isCustom ? `<button class="delete-btn mr-2" data-action="delete-custom-section" data-custom-key="${key}">&times;</button>` : ''}
+                                        <svg class="w-6 h-6 transform transition-transform text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                    </div>
+                                </summary>
+                                <div class="section-content">${itemsHtml}</div>
+                            </details>
+                            ${addBtnText ? `<button class="control-btn mt-4" data-action="add" ${datasetKey}>+ Add ${addBtnText}</button>` : ''}
+                        </div>`;
+            }
+            
+            function renderSectionVisibilityDropdown() {
+                const allSections = { ...initialResumeData, ...appData.resume };
+                const sectionKeys = Object.keys(allSections).filter(k => k !== 'personal' && k !== 'summary' && k !== 'customSections');
+                const customSectionKeys = (appData.resume.customSections || []).map(s => s.key);
+                
+                let html = '';
+                [...sectionKeys, ...customSectionKeys].forEach(key => {
+                    let title, count;
+                    const customSection = appData.resume.customSections?.find(s=>s.key === key);
+                    if (customSection) {
+                        title = customSection.title;
+                        count = customSection.items.length;
+                    } else {
+                        title = key.charAt(0).toUpperCase() + key.slice(1);
+                        count = appData.resume[key]?.length || 0;
+                    }
+                    html += `<label class="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="h-4 w-4 rounded border-gray-300" data-section-key="${key}" ${appData.visibleSections.includes(key) ? 'checked' : ''}>
+                                    <span class="ml-3">${title}</span>
+                                </div>
+                                <span class="text-xs bg-gray-200 text-gray-600 rounded-full px-2">${count}</span>
+                             </label>`;
+                });
+                ui.sectionVisibilityDropdown.innerHTML = html;
+            }
+
+            function renderEditor() {
+                const { resume } = appData;
+                const entryControls = (s, id, isCustom=false) => `<div class="absolute top-3 right-3 flex gap-2"><button class="clear-btn" title="Clear Fields" data-action="clear" ${isCustom ? `data-custom-key="${s}"` : `data-section="${s}"`} data-id="${id}">Clear</button><button class="delete-btn" data-action="delete" ${isCustom ? `data-custom-key="${s}"` : `data-section="${s}"`} data-id="${id}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>`;
+                const personalHtml = `<div class="editor-section"><h3 class="text-xl font-heading font-bold mb-4">Personal Info</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">${Object.keys(resume.personal).map(k=>`<div class="mb-2"><label class="text-sm font-medium capitalize text-gray-600">${k}</label><input type="text" class="editor-input" data-section="personal" data-field="${k}" value="${resume.personal[k]||''}"></div>`).join('')}</div></div>`;
+                const summaryHtml = `<div class="editor-section"><h3 class="text-xl font-heading font-bold mb-4">Default Summary</h3><textarea class="editor-input h-32" data-section="summary" data-field="default">${resume.summary.default||''}</textarea></div>`;
+                
+                const experienceTemplate = i => `<div class="relative p-4 mb-3 border rounded-lg bg-gray-50" data-id="${i.id}">${entryControls('experience',i.id)}<input type="text" placeholder="Job Title" class="editor-input font-semibold mb-2 w-[calc(100%-100px)]" data-field="title" value="${i.title||''}"><div class="grid grid-cols-1 md:grid-cols-2 gap-x-4"><input type="text" placeholder="Company" class="editor-input mb-2" data-field="company" value="${i.company||''}"><input type="text" placeholder="Dates" class="editor-input mb-2" data-field="dates" value="${i.dates||''}"></div><textarea placeholder="Accomplishments (one per line)" class="editor-input text-sm h-24" data-field="points">${i.points||''}</textarea>${renderTagCloud(i.tags)}</div>`;
+                const simpleTemplate = (key, placeholders) => (i, sectionKey = key) => {
+                    const fields = Object.keys(placeholders);
+                    const titleField = `<input class="editor-input mb-2 w-[calc(100%-100px)]" data-field="${fields[0]}" value="${i[fields[0]]||''}" placeholder="${placeholders[fields[0]]}">`;
+                    const otherFields = fields.slice(1).map(field => `<input class="editor-input mb-2" data-field="${field}" value="${i[field]||''}" placeholder="${placeholders[field]}">`).join('');
+                    const isTwoCol = fields.length > 2;
+                    return `<div class="relative p-4 mb-3 border rounded-lg bg-gray-50" data-id="${i.id}">${entryControls(sectionKey, i.id, key==='custom')}
+                        ${titleField}
+                        <div class="${isTwoCol ? 'grid grid-cols-1 md:grid-cols-2 gap-x-4' : ''}">${otherFields}</div>
+                        ${renderTagCloud(i.tags)}
+                    </div>`;
+                };
+
+                let sectionsHtml = '';
+                appData.visibleSections.forEach(key => {
+                    const sectionMap = {
+                        experience: () => renderSection('Experience', 'experience', experienceTemplate, 'Experience'),
+                        education: () => renderSection('Education', 'education', simpleTemplate('education', {degree: 'Degree', school: 'School', dates: 'Dates'}), 'Education'),
+                        projects: () => renderSection('Projects', 'projects', simpleTemplate('projects', {name: 'Project Name', role: 'Your Role', org: 'Organization', date: 'Date'}), 'Project'),
+                        skills: () => renderSection('Skills', 'skills', i => `<div class="relative p-4 mb-3 border rounded-lg bg-gray-50" data-id="${i.id}">${entryControls('skills', i.id)}<input class="editor-input mb-2 w-[calc(100%-100px)]" data-field="category" value="${i.category||''}" placeholder="Category"><textarea class="editor-input h-20" data-field="items" placeholder="Comma separated items">${i.items||''}</textarea>${renderTagCloud(i.tags)}</div>`, 'Skill Category'),
+                        publications: () => renderSection('Publications', 'publications', i => `<div class="relative p-4 mb-3 border rounded-lg bg-gray-50" data-id="${i.id}">${entryControls('publications', i.id)}<input class="editor-input mb-2 w-[calc(100%-100px)]" data-field="title" value="${i.title||''}" placeholder="Title"><div class="grid grid-cols-1 md:grid-cols-2 gap-x-4"><input class="editor-input mb-2" data-field="journal" value="${i.journal||''}" placeholder="Journal/Platform"><input class="editor-input mb-2" data-field="date" value="${i.date||''}" placeholder="Date"></div><textarea class="editor-input mb-2 h-20" data-field="description" placeholder="Description">${i.description||''}</textarea>${renderTagCloud(i.tags)}</div>`, 'Publication'),
+                        service: () => renderSection('Service & Community', 'service', simpleTemplate('service', {role: 'Role', org: 'Organization', date: 'Date'}), 'Service'),
+                        achievements: () => renderSection('Achievements', 'achievements', simpleTemplate('achievements', {text: 'Achievement', org: 'Organization', date: 'Date'}), 'Achievement'),
+                        certifications: () => renderSection('Certifications', 'certifications', simpleTemplate('certifications', {name: 'Certification Name', org: 'Issuing Organization', dates: 'Date/Range'}), 'Certification'),
+                        courses: () => renderSection('Courses & Workshops', 'courses', simpleTemplate('courses', {name: 'Course Name', org: 'Organization', date: 'Date'}), 'Course'),
+                    };
+                    if (sectionMap[key]) {
+                        sectionsHtml += sectionMap[key]();
+                    } else { // It's a custom section
+                        const customSection = appData.resume.customSections.find(s => s.key === key);
+                        if(customSection) {
+                            sectionsHtml += renderSection(customSection.title, key, simpleTemplate('custom', {title: 'Title', description: 'Description', date: 'Date'}), 'Entry', true);
+                        }
+                    }
+                });
+                
+                ui.editorContainer.innerHTML = personalHtml + summaryHtml + sectionsHtml;
+                const addCustomSectionBtn = `<button id="add-custom-section-btn" class="w-full control-btn py-4 text-base font-bold editor-section" style="margin-bottom: 1rem;">+ Add Custom Section</button>`;
+                document.getElementById('resume-editor-container').insertAdjacentHTML('beforeend', addCustomSectionBtn);
+                document.getElementById('add-custom-section-btn').addEventListener('click', () => {
+                     const title = prompt("Enter a title for the new section:");
+                    if(title) {
+                        const key = `custom-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                        if(!appData.resume.customSections) appData.resume.customSections = [];
+                        appData.resume.customSections.push({ key, title, items: [] });
+                        appData.visibleSections.push(key);
+                        renderEditor();
+                    }
+                });
+                
+                renderSectionVisibilityDropdown();
+            }
+            
+            function renderPresets() {
+                ui.audiencePreset.innerHTML = Object.keys(appData.presets).map(key => `<option value="${key}">${appData.presets[key].name}</option>`).join('');
+                ui.presetList.innerHTML = Object.keys(appData.presets).filter(k => k !== 'custom' && k !== 'everything').map(key => `<div class="relative bg-gray-50 p-4 rounded-lg border" data-id="${key}">
+                    <div class="absolute top-2 right-2">${entryControls('presets', key)}</div>
+                    <p class="font-semibold pr-8">${appData.presets[key].name}</p>
+                    ${renderTagCloud(appData.presets[key].tags, true)}
+                </div>`).join('');
+            }
+
+            // --- EVENT LISTENERS ---
+             function switchView(view) {
+                if (view === 'generator') {
+                    ui.editorView.classList.add('hidden');
+                    ui.generatorView.classList.remove('hidden');
+                } else {
+                    ui.generatorView.classList.add('hidden');
+                    ui.editorView.classList.remove('hidden');
+                }
+            }
+            document.body.addEventListener('click', e => {
+                const target = e.target.closest('[data-action]');
+                if(!target) return;
+                const action = target.dataset.action;
+                if (action === 'show-generator') switchView('generator');
+                if (action === 'show-editor') switchView('editor');
+            });
+
+
+            ui.manageTagsBtn.addEventListener('click', () => { renderPresets(); ui.newPresetTagContainer.innerHTML = renderTagCloud([], true); ui.presetModal.classList.remove('hidden'); });
+            ui.closePresetModalBtn.addEventListener('click', () => ui.presetModal.classList.add('hidden'));
+            
+            ui.addPresetBtn.addEventListener('click', () => {
+                const name = ui.newPresetName.value.trim();
+                const key = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                if (name && key && !appData.presets[key]) {
+                    appData.presets[key] = { name, tags: [...newPresetTags] };
+                    ui.newPresetName.value = '';
+                    newPresetTags = [];
+                    ui.newPresetTagContainer.innerHTML = renderTagCloud([], true); // Reset
+                    renderPresets(); updateAllTags(); saveData();
+                }
+            });
+
+            ui.addMasterTagBtn.addEventListener('click', () => {
+                const newTag = ui.newMasterTag.value.trim();
+                if (newTag && !appData.masterTags.has(newTag)) {
+                    appData.masterTags.add(newTag);
+                    ui.newMasterTag.value = '';
+                    updateAllTags();
+                    saveData();
+                }
+            });
+
+            ui.presetModal.addEventListener('click', e => {
+                const target = e.target.closest('[data-action]');
+                if(!target) return;
+                const {action, section, id, tagValue} = target.dataset;
+                if(action === 'delete-preset') {
+                    delete appData.presets[id];
+                    renderPresets(); updateAllTags(); saveData();
+                } else if (action === 'toggle-tag') {
+                    const presetContainer = e.target.closest('[data-id]');
+                    if(presetContainer) {
+                        const presetKey = presetContainer.dataset.id;
+                        const preset = appData.presets[presetKey];
+                        if (preset.tags.includes(tagValue)) {
+                            preset.tags = preset.tags.filter(t => t !== tagValue);
+                        } else {
+                            preset.tags.push(tagValue);
+                        }
+                    } else { // New preset context
+                         if (newPresetTags.includes(tagValue)) {
+                            newPresetTags = newPresetTags.filter(t => t !== tagValue);
+                        } else {
+                            newPresetTags.push(tagValue);
+                        }
+                    }
+                    renderPresets();
+                    ui.newPresetTagContainer.innerHTML = renderTagCloud(newPresetTags, true);
+                } else if(action === 'delete-master-tag') {
+                    appData.masterTags.delete(tagValue);
+                    Object.values(appData.presets).forEach(p => {p.tags = p.tags.filter(t => t !== tagValue)});
+                    Object.values(appData.resume).forEach(s => {if(Array.isArray(s)) s.forEach(i => {i.tags = i.tags.filter(t => t !== tagValue)})});
+                    updateAllTags(); renderPresets(); renderEditor(); saveData();
+                }
+            });
+            
+            const handleTagInput = (e, context, item) => {
+                 if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const tagValue = e.target.value.trim();
+                    if (tagValue) {
+                        if (!item.tags.includes(tagValue)) { 
+                            item.tags.push(tagValue); 
+                            if (!appData.masterTags.has(tagValue)) {
+                                appData.masterTags.add(tagValue);
+                                updateAllTags();
+                            }
+                        }
+                        e.target.value = ''; 
+                        if (context === 'editor') renderEditor();
+                        else if (context === 'presets') renderPresets();
+                    }
+                }
+            };
+
+            ui.presetModal.addEventListener('keydown', e => {
+                 if (e.target.dataset.action === 'add-new-tag') {
+                    const presetContainer = e.target.closest('[data-id]');
+                    let item;
+                    if(presetContainer) { // Existing preset
+                        item = appData.presets[presetContainer.dataset.id];
+                    } else { // New preset
+                         if (!newPresetTags) newPresetTags = [];
+                         item = {tags: newPresetTags}; // temp object
+                    }
+                    handleTagInput(e, 'presets', item);
+                    if (!presetContainer) { // update UI for new preset tags
+                        newPresetTags = item.tags;
+                        ui.newPresetTagContainer.innerHTML = renderTagCloud(newPresetTags, true);
+                    }
+                 }
+            });
+
+            ui.editorContainer.addEventListener('input', (e) => {
+                const { section, field, customKey } = e.target.dataset;
+                if (!section) return;
+                if (section === 'personal' || section === 'summary') { appData.resume[section][field] = e.target.value; } 
+                else { 
+                    const id = e.target.closest('[data-id]').dataset.id;
+                    let itemsArray;
+                    if (customKey) {
+                        itemsArray = appData.resume.customSections.find(s=>s.key === customKey).items;
+                    } else {
+                        itemsArray = appData.resume[section];
+                    }
+                    const item = itemsArray.find(i => i.id == id); if (item) item[field] = e.target.value;
+                 }
+            });
+
+            ui.editorContainer.addEventListener('click', (e) => {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
+                const { action, section, id, tagValue, customKey } = target.dataset;
+                
+                let itemsArray, item;
+                if(customKey) {
+                    itemsArray = appData.resume.customSections.find(s => s.key === customKey).items;
+                } else if (section) {
+                    itemsArray = appData.resume[section];
+                }
+                if(id) item = itemsArray?.find(i => i.id == id);
+
+
+                if (action === 'delete-custom-section') {
+                    appData.resume.customSections = appData.resume.customSections.filter(s => s.key !== customKey);
+                    appData.visibleSections = appData.visibleSections.filter(s => s !== customKey);
+                    renderEditor();
+                } else if (action === 'clear') {
+                     if(!item) return;
+                     Object.keys(item).forEach(key => { if(key !== 'id' && key !== 'tags') item[key] = ''});
+                     renderEditor();
+                } else if (action === 'delete') { 
+                    if(customKey) {
+                        appData.resume.customSections.find(s => s.key === customKey).items = itemsArray.filter(i => i.id != id);
+                    } else {
+                        appData.resume[section] = itemsArray.filter(i => i.id != id);
+                    }
+                    renderEditor(); 
+                } else if (action === 'add') { 
+                    const newItem = { id: `new${Date.now()}`, tags: [] }; 
+                    if(customKey) {
+                         appData.resume.customSections.find(s => s.key === customKey).items.push(newItem);
+                    } else {
+                        if (!appData.resume[section]) appData.resume[section] = []; 
+                        appData.resume[section].push(newItem); 
+                    }
+                    renderEditor(); 
+                } else if (action === 'toggle-tag') { 
+                    if(!item) return;
+                    if (item.tags.includes(tagValue)) { item.tags = item.tags.filter(t => t !== tagValue); } else { item.tags.push(tagValue); } 
+                    renderEditor(); 
+                }
+            });
+             ui.editorContainer.addEventListener('keydown', (e) => {
+                if (e.target.dataset.action === 'add-new-tag') {
+                    const itemContainer = e.target.closest('[data-id]');
+                    const customKey = e.target.closest('[data-custom-key]')?.dataset.customKey;
+                     let item;
+                    if(customKey) {
+                        item = appData.resume.customSections.find(s=>s.key === customKey).items.find(i => i.id == itemContainer.dataset.id);
+                    } else {
+                        item = appData.resume[itemContainer.dataset.section].find(i => i.id == itemContainer.dataset.id);
+                    }
+                    handleTagInput(e, 'editor', item);
+                }
+            });
+            
+            ui.sectionVisibilityBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                ui.sectionVisibilityDropdown.classList.toggle('hidden');
+            });
+            ui.sectionVisibilityDropdown.addEventListener('change', (e) => {
+                const key = e.target.dataset.sectionKey;
+                if(e.target.checked) {
+                    if(!appData.visibleSections.includes(key)) appData.visibleSections.push(key);
+                } else {
+                    appData.visibleSections = appData.visibleSections.filter(s => s !== key);
+                }
+                renderEditor();
+            });
+            window.addEventListener('click', (e) => {
+                if (!ui.sectionVisibilityBtn.contains(e.target) && !ui.sectionVisibilityDropdown.contains(e.target)) {
+                    ui.sectionVisibilityDropdown.classList.add('hidden');
+                }
+            });
+            
+            // --- ALL GENERATION AND PREVIEW LOGIC RESTORED HERE ---
+            async function callGemini(prompt, schema) {
+                const apiKey = ""; const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", responseSchema: schema } };
+                try { const res = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); if (!res.ok) { throw new Error(`API Error: ${res.status} ${res.statusText}`); } const result = await res.json(); const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text; if (!responseText) { throw new Error("AI returned an empty response."); } try { return JSON.parse(responseText); } catch (parseError) { console.error("Failed to parse AI response:", responseText); throw new Error("AI returned malformed data."); } } catch (error) { console.error("Error calling Gemini API:", error); throw error; }
+            }
+            ui.generateButton.addEventListener('click', async () => {
+                ui.generateButton.disabled = true; ui.generateButtonText.textContent = 'Generating...'; ui.generatorError.textContent = "";
+                const [presetKey, format, useAiRewrite] = [ui.audiencePreset.value, ui.formatPreset.value, ui.aiRewriteToggle.checked];
+                let audienceDescription = ui.jobDescription.value || appData.presets[presetKey]?.name;
+                let filteredResume = JSON.parse(JSON.stringify(appData.resume));
+                const requiredTags = appData.presets[presetKey]?.tags || [];
+                if (presetKey !== 'everything' && presetKey !== 'custom' && requiredTags.length > 0) { Object.keys(filteredResume).forEach(key => { if (Array.isArray(filteredResume[key])) { filteredResume[key] = filteredResume[key].filter(item => (item.tags||[]).some(tag => requiredTags.includes(tag))); } }); }
+                
+                let prompt = '';
+                const baseInstructions = `DO NOT invent or hallucinate any information. Only use the data provided in the "Available Data" JSON.`;
+                if (format === 'resume') {
+                    prompt = useAiRewrite ? `${baseInstructions} You are an expert resume writer creating a professional, one-page resume for Devin Dushanek for this audience: "${audienceDescription}". Available Data: ${JSON.stringify(filteredResume)}. Instructions: 1. Write a new 2-3 sentence professional profile. 2. Select ONLY the most impactful information for a single page: Profile, Recent Experience, Education, and Skills. 3. Choose the 2-3 most relevant experiences and rewrite the points to be action-oriented achievements. 4. Consolidate skills. 5. Omit other sections like Publications, Service, etc., by default. Return ONLY a JSON object following the schema.` 
+                                         : `${baseInstructions} You are a strict data assembler. Create a one-page resume for the audience: "${audienceDescription}". Available Data: ${JSON.stringify(filteredResume)}. Instructions: 1. Select the most relevant entries for a one-page resume (Summary, Experience, Education, Skills). 2. Use the EXACT verbatim text for all selected entries; DO NOT rewrite anything. 3. Use the "default" summary text provided in the data. 4. Omit other sections. Return ONLY the selected data as a JSON object matching the schema.`;
+                } else { // CV format
+                    prompt = useAiRewrite ? `${baseInstructions} Create a tailored comprehensive CV for Devin Dushanek. Audience: ${audienceDescription}. Data: ${JSON.stringify(filteredResume)}. Instructions: Write a new summary and include all relevant data. Return ONLY a JSON object following the schema.`
+                                         : `${baseInstructions} You are a strict data assembler. Create a comprehensive CV for the audience: "${audienceDescription}". Available Data: ${JSON.stringify(filteredResume)}. Instructions: 1. Select all data relevant to the audience. 2. Use the EXACT verbatim text for all selected entries; DO NOT rewrite anything. 3. Use the "default" summary text provided. Return ONLY the selected data as a JSON object matching the schema.`;
+                }
+                
+                const experienceSchema = { type: "OBJECT", properties: { title: { type: "STRING" }, company: { type: "STRING" }, dates: { type: "STRING" }, points: { type: "STRING" } } };
+                const simpleSchema = (props) => ({ type: "OBJECT", properties: props });
+                const cvSchema = { type: "OBJECT", properties: { summary: { type: "STRING" }, experience: { type: "ARRAY", items: experienceSchema }, education: { type: "ARRAY", items: simpleSchema({ degree: {type: "STRING"}, school: {type: "STRING"}, dates: {type: "STRING"}}) }, projects: { type: "ARRAY", items: simpleSchema({ name: {type: "STRING"}, role: {type:"STRING"}, org: {type:"STRING"}, date: {type:"STRING"}})}, skills: { type: "ARRAY", items: simpleSchema({ category: {type: "STRING"}, items: {type: "STRING"}})}, publications: { type: "ARRAY", items: simpleSchema({ title: {type: "STRING"}, journal: {type: "STRING"}, description: {type:"STRING"}})}, service: { type: "ARRAY", items: simpleSchema({ role: {type: "STRING"}, org: {type: "STRING"}, date: {type: "STRING"}})}, achievements: { type: "ARRAY", items: simpleSchema({ text: {type: "STRING"}, org: {type:"STRING"}, date: {type:"STRING"}})}, certifications: { type: "ARRAY", items: simpleSchema({ name: {type: "STRING"}, org: {type:"STRING"}, dates: {type:"STRING"}})}, courses: { type: "ARRAY", items: simpleSchema({ name: {type: "STRING"}, org: {type:"STRING"}, date: {type:"STRING"}})} } };
+                const resumeSchema = { type: "OBJECT", properties: { summary: { type: "STRING" }, experience: { type: "ARRAY", items: experienceSchema }, education: { type: "ARRAY", items: simpleSchema({ degree: {type: "STRING"}, school: {type: "STRING"}, dates: {type: "STRING"}}) }, skills: { type: "ARRAY", items: simpleSchema({ category: {type: "STRING"}, items: {type: "STRING"}})} }, required: ["summary", "experience", "education", "skills"] };
+                
+                try {
+                    const generatedData = await callGemini(prompt, format === 'resume' ? resumeSchema : cvSchema);
+                    if (!generatedData) throw new Error("Received no data from AI.");
+                    renderPreview(generatedData);
+                    ui.previewTitle.textContent = `Preview: ${ui.audiencePreset.options[ui.audiencePreset.selectedIndex].text}`;
+                    ui.exportContainer.classList.remove('hidden');
+                } catch (e) { ui.generatorError.textContent = `Generation failed: ${e.message}. Note: 401 errors are often related to the environment's API key.`; } finally { ui.generateButton.disabled = false; ui.generateButtonText.textContent = 'Generate'; }
+            });
+            function renderPreview(data) {
+                const { personal } = appData.resume;
+                const renderList = (items, title, template) => (items && items.length > 0) ? `<section class="mb-4"><h2 class="text-lg font-bold border-b-2 border-gray-300 pb-1 mb-2 uppercase tracking-wider">${title}</h2>${items.map(template).join('')}</section>` : '';
+                const formatPoints = (points) => {
+                    if (typeof points === 'string') return points.split('\n').filter(p => p.trim() !== '').map(p => `<li>${p}</li>`).join('');
+                    if (Array.isArray(points)) return points.filter(p => p.trim() !== '').map(p => `<li>${p}</li>`).join('');
+                    return '';
+                };
+                const templates = {
+                    experience: e => `<div class="mb-3"><div class="flex justify-between items-baseline"><h3 class="text-md font-bold">${e.title}</h3><p class="text-sm font-semibold text-gray-600">${e.dates||''}</p></div><p class="text-md italic text-gray-700 mb-1">${e.company||''}</p><ul class="list-disc list-inside text-sm text-gray-800 space-y-1">${formatPoints(e.points)}</ul></div>`,
+                    education: e => `<div class="mb-2"><div class="flex justify-between items-baseline"><h3 class="text-md font-bold">${e.degree}</h3><p class="text-sm font-semibold text-gray-600">${e.dates}</p></div><p class="text-sm text-gray-700">${e.school}</p></div>`,
+                    projects: p => `<div class="mb-2"><div class="flex justify-between items-baseline"><h3 class="text-md font-bold">${p.name}</h3><p class="text-sm font-semibold text-gray-600">${p.date}</p></div><p class="text-sm italic text-gray-700">${p.role} @ ${p.org}</p></div>`,
+                    skills: s => `<div class="mb-2"><p class="text-sm text-gray-800"><span class="font-bold">${s.category}:</span> ${s.items}</p></div>`,
+                    publications: p => `<div class="mb-2"><h3 class="text-md font-bold">${p.title}</h3><p class="text-sm italic text-gray-700">${p.journal}</p>${p.description ? `<p class="text-xs text-gray-600 mt-1">${p.description}</p>` : ''}</div>`,
+                    service: s => `<div class="mb-2"><div class="flex justify-between items-baseline"><h3 class="text-md font-bold">${s.role}</h3><p class="text-sm font-semibold text-gray-600">${s.date}</p></div><p class="text-sm italic text-gray-700">${s.org}</p></div>`,
+                    achievements: a => `<div class="mb-1"><p class="text-sm text-gray-800"><span class="font-bold">${a.text}</span>, ${a.org} (${a.date})</p></div>`,
+                    certifications: c => `<div class="mb-1"><p class="text-sm text-gray-800"><span class="font-bold">${c.name}</span>, ${c.org} (${c.dates})</p></div>`,
+                    courses: c => `<div class="mb-1"><p class="text-sm text-gray-800"><span class="font-bold">${c.name}</span>, ${c.org} (${c.date})</p></div>`
+                };
+                ui.previewContainer.innerHTML = `<header class="text-center mb-6"><h1 class="text-3xl font-bold">${personal.name}</h1><p class="text-sm mt-1 text-gray-600">${personal.credentials}</p><p class="text-sm mt-1 text-gray-600">${personal.location} | ${personal.email} | ${personal.phone}</p></header>${data.summary ? `<section class="mb-4"><h2 class="text-lg font-bold border-b-2 border-gray-300 pb-1 mb-2 uppercase tracking-wider">Summary</h2><p class="text-sm text-gray-800">${data.summary}</p></section>` : ''}${renderList(data.experience, 'Experience', templates.experience)}${renderList(data.education, 'Education', templates.education)}${renderList(data.projects, 'Select Projects', templates.projects)}${renderList(data.skills, 'Skills', templates.skills)}${renderList(data.publications, 'Publications', templates.publications)}${renderList(data.service, 'Service & Community', templates.service)}${renderList(data.achievements, 'Achievements', templates.achievements)}${renderList(data.certifications, 'Certifications', templates.certifications)}${renderList(data.courses, 'Courses & Workshops', templates.courses)}`;
+                ui.previewContainer.setAttribute('contenteditable', 'true');
+            }
+            document.addEventListener('mouseup', (e) => {
+                if (!ui.suggestEditBtn.contains(e.target)) { ui.suggestEditBtn.style.display = 'none'; }
+                if (ui.previewContainer.contains(e.target)) { const selection = window.getSelection(); const selectedText = selection.toString().trim(); if (selectedText.length > 0) { savedSelection = selection.getRangeAt(0).cloneRange(); const rect = savedSelection.getBoundingClientRect(); ui.suggestEditBtn.style.left = `${rect.left + window.scrollX}px`; ui.suggestEditBtn.style.top = `${rect.top + window.scrollY - ui.suggestEditBtn.offsetHeight - 5}px`; ui.suggestEditBtn.style.display = 'block'; } }
+            });
+            ui.suggestEditBtn.addEventListener('click', async () => {
+                ui.suggestionsModal.classList.remove('hidden'); ui.suggestEditBtn.style.display = 'none';
+                ui.suggestionsContent.innerHTML = `<p class="text-center p-8">Loading suggestions...</p>`; ui.useSuggestionBtn.classList.add('hidden');
+                const selectedText = savedSelection.toString();
+                const prompt = `You are an expert career coach. Rewrite the following resume text to be more impactful and professional. Keep it a similar length.\n\nOriginal Text: "${selectedText}"\n\nReturn ONLY the rewritten text as a single JSON object with a "suggestion" field.`;
+                try { const result = await callGemini(prompt, { type: "OBJECT", properties: { suggestion: { type: "STRING" } } }); ui.suggestionsContent.innerHTML = `<div><h4 class="font-bold text-gray-600 text-sm mb-1">ORIGINAL:</h4><p class="bg-gray-100 p-3 rounded-md text-sm">${selectedText}</p></div><div><h4 class="font-bold text-green-700 text-sm mb-1">SUGGESTION:</h4><p id="suggestion-text" class="bg-green-50 p-3 rounded-md text-sm">${result.suggestion}</p></div>`; ui.useSuggestionBtn.classList.remove('hidden'); } catch (error) { ui.suggestionsContent.innerHTML = `<p class="text-red-500">Could not get suggestions. ${error.message}</p>`; }
+            });
+            ui.closeSuggestionsModalBtn.addEventListener('click', () => { ui.suggestionsModal.classList.add('hidden'); });
+            ui.useSuggestionBtn.addEventListener('click', () => { const suggestionText = document.getElementById('suggestion-text').innerText; const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(savedSelection); document.execCommand('insertText', false, suggestionText); ui.suggestionsModal.classList.add('hidden'); ui.suggestEditBtn.style.display = 'none'; });
+            ui.exportDropdownBtn.addEventListener('click', (e) => { e.stopPropagation(); ui.exportOptions.classList.toggle('hidden');});
+            
+            ui.exportOptions.addEventListener('click', e => {
+                if(e.target.id !== 'export-excel') e.stopPropagation();
+            });
+
+            ui.exportPdfButton.addEventListener('click', (e) => { e.preventDefault(); const { jsPDF } = window.jspdf; const resume = document.getElementById('resume-preview-wrapper'); html2canvas(resume, { scale: 2 }).then(canvas => { const imgData = canvas.toDataURL('image/png'); const pdf = new jsPDF('p', 'mm', 'a4'); const pdfWidth = pdf.internal.pageSize.getWidth(); const pdfHeight = (canvas.height * pdfWidth) / canvas.width; pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight); pdf.save("resume.pdf"); }); });
+            ui.exportWordButton.addEventListener('click', async (e) => { e.preventDefault(); const content = document.getElementById('resume-preview').innerHTML; try { const fileBuffer = await htmlToDocx.asBlob(`<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>${content}</body></html>`, { margins: { top: 720, right: 720, bottom: 720, left: 720 }}); saveAs(fileBuffer, 'resume.docx'); } catch(err) { console.error("Error exporting to DOCX:", err); ui.generatorError.textContent = "DOCX export failed. This feature is experimental."; } });
+            ui.exportHtmlButton.addEventListener('click', (e) => { e.preventDefault(); const content = document.getElementById('resume-preview-wrapper').outerHTML; const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume</title><style>body{font-family:sans-serif;}</style></head><body>${content}</body></html>`], {type: 'text/html'}); saveAs(blob, 'resume.html'); });
+            ui.exportExcelButton.addEventListener('click', (e) => { e.preventDefault(); ui.exportOptions.classList.add('hidden'); const data = appData.resume; let csvContent = "data:text/csv;charset=utf-8,"; csvContent += "Section,ID,Field,Value\n"; Object.keys(data).forEach(key => { if (Array.isArray(data[key])) { data[key].forEach(item => { Object.keys(item).forEach(field => { csvContent += `"${key}","${item.id}","${field}","${String(item[field]).replace(/"/g, '""')}"\n`; }); }); } else if(typeof data[key] === 'object') { Object.keys(data[key]).forEach(field => { csvContent += `"${key}","","${field}","${String(data[key][field]).replace(/"/g, '""')}"\n`; }); } }); const encodedUri = encodeURI(csvContent); const link = document.createElement("a"); link.setAttribute("href", encodedUri); link.setAttribute("download", "resume_data.csv"); document.body.appendChild(link); link.click(); document.body.removeChild(link); });
+            window.addEventListener('click', (e) => { if (!ui.exportContainer.contains(e.target)) ui.exportOptions.classList.add('hidden'); });
+            
+            // --- INITIAL LOAD ---
+            loadData();
+            renderEditor();
+            renderPresets();
+            ui.saveButton.addEventListener('click', saveData);
+        });
+    </script>
+</body>
+</html>
+

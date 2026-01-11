@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --neu-bg: #f0f2f5;
+    --neu-light: #ffffff;
+    --neu-shadow: #d1d9e6;
+    --theme-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --neu-bg: #1a1a2e;
+    --neu-light: #252542;
+    --neu-shadow: #0f0f1a;
+  }
+
+  body {
+    @apply bg-[color:var(--neu-bg)] text-slate-600 transition-colors duration-300;
+    font-family: 'Varela Round', sans-serif;
+  }
+
+  .font-heading {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  .font-body {
+    font-family: 'Varela Round', sans-serif;
+  }
+}
+
+@layer components {
+  .neu-flat {
+    background: var(--neu-bg);
+    box-shadow: 8px 8px 16px var(--neu-shadow), -8px -8px 16px var(--neu-light);
+    border-radius: 24px;
+  }
+
+  .neu-flat-sm {
+    background: var(--neu-bg);
+    box-shadow: 4px 4px 8px var(--neu-shadow), -4px -4px 8px var(--neu-light);
+    border-radius: 16px;
+  }
+
+  .neu-pressed {
+    background: var(--neu-bg);
+    box-shadow: inset 6px 6px 12px var(--neu-shadow), inset -6px -6px 12px var(--neu-light);
+    border-radius: 24px;
+  }
+
+  .neu-pressed-sm {
+    background: var(--neu-bg);
+    box-shadow: inset 3px 3px 6px var(--neu-shadow), inset -3px -3px 6px var(--neu-light);
+    border-radius: 12px;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(26, 26, 46, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .editor-input {
+    @apply w-full px-4 py-3 bg-transparent border-none outline-none transition-all rounded-xl text-base;
+    box-shadow: inset 2px 2px 5px var(--neu-shadow), inset -2px -2px 5px var(--neu-light);
+  }
+
+  .editor-input:focus {
+    box-shadow: inset 4px 4px 8px var(--neu-shadow), inset -4px -4px 8px var(--neu-light);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 font-bold text-white transition-all active:scale-95 flex items-center justify-center gap-2 rounded-2xl;
+    background: linear-gradient(145deg, #6366f1, #4f46e5);
+    box-shadow: 5px 5px 10px rgba(79, 70, 229, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.8);
+  }
+
+  .dark .btn-primary {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(255, 255, 255, 0.05);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 8px 8px 16px rgba(79, 70, 229, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+  }
+
+  .dark .btn-primary:hover {
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.6), -3px -3px 8px rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 font-semibold transition-all active:scale-95 flex items-center justify-center gap-2 rounded-xl text-slate-600;
+    background: var(--neu-bg);
+    box-shadow: 4px 4px 8px var(--neu-shadow), -4px -4px 8px var(--neu-light);
+  }
+
+  .dark .btn-secondary {
+    @apply text-slate-400;
+  }
+
+  .btn-secondary:hover {
+    box-shadow: 2px 2px 4px var(--neu-shadow), -2px -2px 4px var(--neu-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-full transition-all active:scale-90;
+    background: var(--neu-bg);
+    box-shadow: 3px 3px 6px var(--neu-shadow), -3px -3px 6px var(--neu-light);
+  }
+
+  .btn-icon:hover {
+    box-shadow: inset 2px 2px 4px var(--neu-shadow), inset -2px -2px 4px var(--neu-light);
+  }
+
+  .tag-bubble {
+    @apply px-3 py-1 text-xs font-medium rounded-full transition-all cursor-pointer;
+    box-shadow: 2px 2px 4px var(--neu-shadow), -2px -2px 4px var(--neu-light);
+  }
+
+  .tag-bubble.selected {
+    @apply text-indigo-600;
+    box-shadow: inset 2px 2px 4px var(--neu-shadow), inset -2px -2px 4px var(--neu-light);
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm;
+  }
+
+  .modal-content {
+    @apply w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 neu-flat;
+  }
+
+  /* Theme Toggle */
+  .theme-toggle {
+    @apply relative w-14 h-8 rounded-full cursor-pointer;
+    background: linear-gradient(145deg, #d1d9e6, #ffffff);
+    box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+  }
+
+  .dark .theme-toggle {
+    background: linear-gradient(145deg, #0f0f1a, #252542);
+    box-shadow: 4px 4px 8px #0f0f1a, -4px -4px 8px #252542;
+  }
+
+  .theme-toggle-knob {
+    @apply absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 2px 2px 4px #d1d9e6;
+  }
+
+  .dark .theme-toggle-knob {
+    @apply left-7;
+    background: linear-gradient(145deg, #252542, #1a1a2e);
+    box-shadow: 2px 2px 4px #0f0f1a;
+  }
+}
+
+.hover-wiggle:hover {
+  animation: waving-wiggle 0.6s ease-in-out infinite;
+}

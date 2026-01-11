@@ -1,0 +1,24 @@
+# System Tools & Helper Scripts
+System-Tools/
+*.py
+*.txt
+
+# Raw Source Files (Excel, Word, PDF)
+*.xlsx
+*.docx
+*.pdf
+*.zip
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.agent/
+.gemini/
+
+# Node
+node_modules/
+dist/
+.vite/

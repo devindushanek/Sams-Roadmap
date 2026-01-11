@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLabs | Premium Resume Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/html-to-docx@1.8.0/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --neu-bg: #f0f2f5;
+            --neu-light: #ffffff;
+            --neu-shadow: #d1d9e6;
+            --theme-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --neu-bg: #1a1a2e;
+            --neu-light: #252542;
+            --neu-shadow: #0f0f1a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--neu-bg);
+            color: #475569;
+            transition: background-color var(--theme-transition), color var(--theme-transition);
+        }
+
+        .neu-flat {
+            background: var(--neu-bg);
+            box-shadow: 8px 8px 16px var(--neu-shadow), -8px -8px 16px var(--neu-light);
+            border-radius: 24px;
+        }
+
+        .neu-flat-sm {
+            background: var(--neu-bg);
+            box-shadow: 4px 4px 8px var(--neu-shadow), -4px -4px 8px var(--neu-light);
+            border-radius: 16px;
+        }
+
+        .neu-pressed {
+            background: var(--neu-bg);
+            box-shadow: inset 6px 6px 12px var(--neu-shadow), inset -6px -6px 12px var(--neu-light);
+            border-radius: 24px;
+        }
+
+        .neu-pressed-sm {
+            background: var(--neu-bg);
+            box-shadow: inset 3px 3px 6px var(--neu-shadow), inset -3px -3px 6px var(--neu-light);
+            border-radius: 12px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="dark"] .glass {
+            background: rgba(26, 26, 46, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .editor-input {
+            @apply w-full px-4 py-3 bg-transparent border-none outline-none transition-all;
+            box-shadow: inset 2px 2px 5px var(--neu-shadow), inset -2px -2px 5px var(--neu-light);
+            border-radius: 12px;
+        }
+
+        .editor-input:focus {
+            box-shadow: inset 4px 4px 8px var(--neu-shadow), inset -4px -4px 8px var(--neu-light);
+        }
+
+        .btn-primary {
+            @apply px-6 py-3 font-bold text-white transition-all active:scale-95 flex items-center justify-center gap-2;
+            background: linear-gradient(145deg, #6366f1, #4f46e5);
+            box-shadow: 5px 5px 10px rgba(79, 70, 229, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            color: white !important;
+        }
+
+        [data-theme="dark"] .btn-primary {
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 8px 8px 16px rgba(79, 70, 229, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            color: white !important;
+        }
+
+        [data-theme="dark"] .btn-primary:hover {
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.6), -3px -3px 8px rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-secondary {
+            @apply px-4 py-2 font-semibold transition-all active:scale-95 flex items-center justify-center gap-2;
+            background: var(--neu-bg);
+            box-shadow: 4px 4px 8px var(--neu-shadow), -4px -4px 8px var(--neu-light);
+            border-radius: 12px;
+            color: #475569;
+        }
+
+        [data-theme="dark"] .btn-secondary {
+            color: #94a3b8;
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 2px 2px 4px var(--neu-shadow), -2px -2px 4px var(--neu-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-icon {
+            @apply p-2 rounded-full transition-all active:scale-90;
+            background: var(--neu-bg);
+            box-shadow: 3px 3px 6px var(--neu-shadow), -3px -3px 6px var(--neu-light);
+        }
+
+        .btn-icon:hover {
+            box-shadow: inset 2px 2px 4px var(--neu-shadow), inset -2px -2px 4px var(--neu-light);
+        }
+
+        @keyframes waving-wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: rotate(5deg) scale(1.02);
+            }
+
+            50% {
+                transform: rotate(-3deg) scale(1.05);
+            }
+
+            75% {
+                transform: rotate(4deg) scale(1.02);
+            }
+        }
+
+        .hover-wiggle:hover {
+            animation: waving-wiggle 0.6s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neu-shadow);
+            border-radius: 10px;
+            border: 2px solid var(--neu-bg);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+
+        .tag-bubble {
+            @apply px-3 py-1 text-xs font-medium rounded-full transition-all cursor-pointer;
+            box-shadow: 2px 2px 4px var(--neu-shadow), -2px -2px 4px var(--neu-light);
+        }
+
+        .tag-bubble.selected {
+            @apply text-indigo-600;
+            box-shadow: inset 2px 2px 4px var(--neu-shadow), inset -2px -2px 4px var(--neu-light);
+        }
+
+        .modal-overlay {
+            @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm;
+        }
+
+        .modal-content {
+            @apply w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 neu-flat;
+        }
+
+        details summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .prose h1,
+        .prose h2,
+        .prose h3 {
+            color: #1e293b;
+        }
+
+        [data-theme="dark"] .prose h1,
+        [data-theme="dark"] .prose h2,
+        [data-theme="dark"] .prose h3 {
+            color: #f1f5f9;
+        }
+
+        #suggest-edit-btn {
+            position: absolute;
+            display: none;
+            background: linear-gradient(145deg, #6366f1, #4f46e5);
+            color: white;
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(79, 70, 229, 0.3);
+            z-index: 100;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: { 500: '#6366f1', 600: '#4f46e5' },
+                        slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased">
+    <div id="app-content" class="min-h-screen pb-20">
+        <!-- Header -->
+        <header class="sticky top-0 z-40 glass border-b border-white/10">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="C:\Users\devin\.gemini\antigravity\brain\2546a3e1-3a81-4bf9-be4a-a03ec2069d59\uploaded_image_1768015535826.png"
+                        alt="DevLabs Logo" class="w-10 h-10 object-contain hover-wiggle cursor-pointer">
+                    <h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                        DEV<span class="text-indigo-600">LABS</span>
+                        <span
+                            class="text-slate-400 font-medium ml-2 border-l border-slate-200 dark:border-slate-700 pl-2">Resume
+                            Gen</span>
+                    </h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="btn-icon text-slate-500">
+                        <i data-lucide="sun" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                    <button id="save-button" class="btn-primary">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        <span id="save-button-text">Save Data</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-6 py-10">
+            <!-- Editor View -->
+            <div id="editor-view" class="space-y-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                    <div class="flex items-center gap-4">
+                        <button id="section-visibility-btn" class="btn-secondary">
+                            <i data-lucide="layout" class="w-4 h-4"></i>
+                            Manage Sections
+                        </button>
+                        <button id="manage-tags-btn" class="btn-secondary">
+                            <i data-lucide="tag" class="w-4 h-4"></i>
+                            Tags & Presets
+                        </button>
+                        <button id="add-custom-section-btn" class="btn-secondary">
+                            <i data-lucide="plus-square" class="w-4 h-4"></i>
+                            Add Custom Section
+                        </button>
+                    </div>
+                    <button data-action="show-generator" class="btn-primary px-8 py-4 text-lg">
+                        Generate Resume
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div id="resume-editor-container" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Sections will be injected here -->
+                </div>
+            </div>
+
+            <!-- Generator View -->
+            <div id="generator-view" class="hidden space-y-8">
+                <button data-action="show-editor" class="btn-secondary">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Back to Editor
+                </button>
+
+                <div class="grid grid-cols-1 xl:grid-cols-5 gap-10 items-start">
+                    <!-- Controls -->
+                    <div class="xl:col-span-2 space-y-8">
+                        <div class="neu-flat p-8 space-y-6">
+                            <h2 class="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                                <i data-lucide="settings-2" class="text-indigo-600"></i>
+                                Configuration
+                            </h2>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-bold uppercase tracking-wider text-slate-400">Audience</label>
+                                    <select id="audience-preset" class="editor-input"></select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-bold uppercase tracking-wider text-slate-400">Format</label>
+                                    <select id="format-preset" class="editor-input">
+                                        <option value="resume">1-Page Resume</option>
+                                        <option value="cv">Full CV</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Job Description
+                                    / Context</label>
+                                <textarea id="job-description" class="editor-input h-40 resize-none"
+                                    placeholder="Paste job description here for AI tailoring..."></textarea>
+                            </div>
+
+                            <div class="flex items-center gap-3 p-4 neu-pressed-sm">
+                                <input id="ai-rewrite-toggle" type="checkbox"
+                                    class="w-5 h-5 rounded-lg border-none bg-slate-200 text-indigo-600 focus:ring-indigo-500"
+                                    checked>
+                                <label for="ai-rewrite-toggle"
+                                    class="text-sm font-medium text-slate-600 dark:text-slate-300">AI Content
+                                    Tailoring</label>
+                            </div>
+
+                            <button id="generate-button" class="btn-primary w-full py-4 text-lg">
+                                <span id="generate-button-text">Generate Resume</span>
+                                <i data-lucide="wand-2" class="w-5 h-5"></i>
+                            </button>
+                            <div id="generator-error" class="text-rose-500 text-sm font-medium text-center"></div>
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="xl:col-span-3 space-y-8">
+                        <div class="neu-flat p-8 space-y-6">
+                            <div class="flex justify-between items-center">
+                                <h2 id="preview-title" class="text-2xl font-black text-slate-900 dark:text-white">
+                                    Preview</h2>
+                                <div id="export-container" class="relative hidden">
+                                    <button id="export-dropdown-btn" class="btn-secondary">
+                                        Export
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </button>
+                                    <div id="export-options"
+                                        class="absolute right-0 mt-2 w-48 glass rounded-2xl shadow-2xl z-50 hidden overflow-hidden border border-slate-200 dark:border-slate-700">
+                                        <a href="#" id="export-pdf"
+                                            class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
+                                            <i data-lucide="file-text" class="w-4 h-4 text-rose-500"></i> PDF Document
+                                        </a>
+                                        <a href="#" id="export-word"
+                                            class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
+                                            <i data-lucide="file-code" class="w-4 h-4 text-blue-500"></i> Word Doc
+                                        </a>
+                                        <a href="#" id="export-excel"
+                                            class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
+                                            <i data-lucide="table" class="w-4 h-4 text-emerald-500"></i> Excel (.csv)
+                                        </a>
+                                        <a href="#" id="export-html"
+                                            class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
+                                            <i data-lucide="code" class="w-4 h-4 text-amber-500"></i> HTML File
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="resume-preview-wrapper"
+                                class="bg-white rounded-2xl p-10 shadow-inner min-h-[800px]">
+                                <div id="resume-preview" class="prose max-w-none text-slate-800">
+                                    <div
+                                        class="flex flex-col items-center justify-center h-[600px] text-slate-400 gap-4">
+                                        <i data-lucide="file-search" class="w-16 h-16 opacity-20"></i>
+                                        <p class="text-lg font-medium">Configure and generate to see preview</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="preset-manager-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-black text-slate-900 dark:text-white">Manage Presets & Tags</h3>
+                <button id="close-preset-modal-btn" class="btn-icon">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-400">Audience Presets</h4>
+                    <div id="preset-list" class="space-y-4 max-h-60 overflow-y-auto pr-2"></div>
+                    <div class="neu-pressed-sm p-6 space-y-4">
+                        <h5 class="font-bold text-slate-700 dark:text-slate-200">New Preset</h5>
+                        <input id="new-preset-name" type="text" class="editor-input" placeholder="e.g. UX Designer">
+                        <div id="new-preset-tag-container"></div>
+                        <button id="add-preset-btn" class="btn-primary w-full py-2 text-sm">Add Preset</button>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-slate-400">Master Tags</h4>
+                    <div id="master-tag-list-display" class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-2">
+                    </div>
+                    <div class="neu-pressed-sm p-6 space-y-4">
+                        <h5 class="font-bold text-slate-700 dark:text-slate-200">New Tag</h5>
+                        <input id="new-master-tag" type="text" class="editor-input" placeholder="e.g. leadership">
+                        <button id="add-master-tag-btn" class="btn-primary w-full py-2 text-sm">Add Tag</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-visibility-modal" class="modal-overlay hidden">
+        <div class="modal-content max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-black text-slate-900 dark:text-white">Manage Sections</h3>
+                <button id="close-visibility-modal-btn" class="btn-icon">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="section-visibility-list" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <div id="suggestions-modal" class="modal-overlay hidden">
+        <div class="modal-content max-w-lg">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-black text-slate-900 dark:text-white">AI Suggestion</h3>
+                <button id="close-suggestions-modal-btn" class="btn-icon">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="suggestions-content" class="space-y-6"></div>
+            <div class="flex justify-end mt-8">
+                <button id="use-suggestion-btn" class="btn-primary hidden">Use Suggestion</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="suggest-edit-btn">✨ Suggest Edit</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') html.classList.add('dark');
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                html.classList.toggle('dark');
+                localStorage.setItem('theme', newTheme);
+            });
+
+            let appData = { resume: {}, presets: {}, masterTags: new Set(), visibleSections: [] };
+            let savedSelection = null;
+            let newPresetTags = [];
+            const LOCAL_STORAGE_KEY = 'modular-resume-data-v16';
+
+            const ui = {
+                editorView: document.getElementById('editor-view'),
+                generatorView: document.getElementById('generator-view'),
+                editorContainer: document.getElementById('resume-editor-container'),
+                previewContainer: document.getElementById('resume-preview'),
+                previewTitle: document.getElementById('preview-title'),
+                jobDescription: document.getElementById('job-description'),
+                audiencePreset: document.getElementById('audience-preset'),
+                formatPreset: document.getElementById('format-preset'),
+                generateButton: document.getElementById('generate-button'),
+                generateButtonText: document.getElementById('generate-button-text'),
+                saveButton: document.getElementById('save-button'),
+                saveButtonText: document.getElementById('save-button-text'),
+                exportContainer: document.getElementById('export-container'),
+                exportDropdownBtn: document.getElementById('export-dropdown-btn'),
+                exportOptions: document.getElementById('export-options'),
+                exportPdfButton: document.getElementById('export-pdf'),
+                exportWordButton: document.getElementById('export-word'),
+                exportExcelButton: document.getElementById('export-excel'),
+                exportHtmlButton: document.getElementById('export-html'),
+                generatorError: document.getElementById('generator-error'),
+                manageTagsBtn: document.getElementById('manage-tags-btn'),
+                presetModal: document.getElementById('preset-manager-modal'),
+                closePresetModalBtn: document.getElementById('close-preset-modal-btn'),
+                presetList: document.getElementById('preset-list'),
+                newPresetName: document.getElementById('new-preset-name'),
+                newPresetTagContainer: document.getElementById('new-preset-tag-container'),
+                addPresetBtn: document.getElementById('add-preset-btn'),
+                masterTagListDisplay: document.getElementById('master-tag-list-display'),
+                newMasterTag: document.getElementById('new-master-tag'),
+                addMasterTagBtn: document.getElementById('add-master-tag-btn'),
+                aiRewriteToggle: document.getElementById('ai-rewrite-toggle'),
+                sectionVisibilityBtn: document.getElementById('section-visibility-btn'),
+                sectionVisibilityModal: document.getElementById('section-visibility-modal'),
+                sectionVisibilityList: document.getElementById('section-visibility-list'),
+                closeVisibilityModalBtn: document.getElementById('close-visibility-modal-btn'),
+                addCustomSectionBtn: document.getElementById('add-custom-section-btn'),
+                suggestEditBtn: document.getElementById('suggest-edit-btn'),
+                suggestionsModal: document.getElementById('suggestions-modal'),
+                suggestionsContent: document.getElementById('suggestions-content'),
+                closeSuggestionsModalBtn: document.getElementById('close-suggestions-modal-btn'),
+                useSuggestionBtn: document.getElementById('use-suggestion-btn'),
+            };
+
+            const initialResumeData = {
+                personal: { name: 'Devin Dushanek', credentials: 'M.Arch. Cand., B.EnvD.', email: 'dushanekd@gmail.com', phone: '+1 [204] 620 2642', location: 'Winnipeg, Manitoba' },
+                summary: { default: "7 years of experience using inclusive design methods to improve the lived experience of people from different cultural backgrounds and across the disability spectrum..." },
+                experience: [{ id: 'exp1', title: 'VP - Design', company: 'Adaptability Canada [Remote]', dates: '06/2023 - Present', points: 'Leading research and design for future-forward best practices in inclusive design...', tags: ['leadership', 'inclusive-design'] }],
+                education: [{ id: 'edu1', degree: 'Master of Architecture', school: 'University of Manitoba', dates: '2022-2025', tags: ['academic', 'architecture'] }],
+                skills: [{ id: 'ski1', category: 'Research & Strategy', items: 'research + analysis, collaboration, problem-solving', tags: ['professional'] }],
+                projects: [], achievements: [], certifications: [], courses: [], service: [], publications: [], customSections: []
+            };
+
+            const initialPresets = {
+                'custom': { name: 'Custom (use text box)', tags: [] },
+                'inclusive-design': { name: 'Inclusive Design Consulting', tags: ['inclusive-design', 'consulting'] },
+                'everything': { name: 'Everything', tags: [] }
+            };
+
+            function updateAllTags() {
+                appData.masterTags.clear();
+                Object.values(appData.presets).forEach(preset => (preset.tags || []).forEach(tag => appData.masterTags.add(tag)));
+                Object.values(appData.resume).forEach(section => { if (Array.isArray(section)) { section.forEach(item => (item.tags || []).forEach(tag => appData.masterTags.add(tag))); } });
+                renderMasterTagList();
+            }
+
+            function renderMasterTagList() {
+                const sortedTags = Array.from(appData.masterTags).sort();
+                ui.masterTagListDisplay.innerHTML = sortedTags.map(tag => `
+                    <div class="flex justify-between items-center text-xs p-3 neu-pressed-sm rounded-xl">
+                        <span class="truncate font-medium">${tag}</span>
+                        <button class="text-rose-500 hover:scale-110 transition-transform" data-action="delete-master-tag" data-tag-value="${tag}">
+                            <i data-lucide="trash-2" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            }
+
+            function loadData() {
+                const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (savedData) {
+                    try {
+                        const parsed = JSON.parse(savedData);
+                        appData.resume = { ...initialResumeData, ...parsed.resume };
+                        appData.presets = { ...initialPresets, ...parsed.presets };
+                        appData.visibleSections = parsed.visibleSections || ['experience', 'education', 'skills'];
+                    } catch (e) { console.error(e); }
+                } else {
+                    appData.resume = JSON.parse(JSON.stringify(initialResumeData));
+                    appData.presets = JSON.parse(JSON.stringify(initialPresets));
+                    appData.visibleSections = ['experience', 'education', 'skills'];
+                }
+                updateAllTags();
+            }
+
+            function saveData() {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ resume: appData.resume, presets: appData.presets, visibleSections: appData.visibleSections }));
+                const originalText = ui.saveButtonText.textContent;
+                ui.saveButtonText.textContent = 'Saved!';
+                setTimeout(() => { ui.saveButtonText.textContent = originalText; }, 1500);
+            }
+
+            function renderTagCloud(itemTags = [], isPreset = false) {
+                const allTags = Array.from(appData.masterTags).sort();
+                return `
+                    <div class="mt-4 space-y-2">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Tags</label>
+                        <div class="flex flex-wrap gap-2">
+                            ${allTags.map(tag => `
+                                <span class="tag-bubble ${itemTags.includes(tag) ? 'selected' : ''}" data-action="toggle-tag" data-tag-value="${tag}">${tag}</span>
+                            `).join('')}
+                            <input type="text" class="bg-transparent border-none outline-none text-xs w-24 placeholder-slate-300 dark:placeholder-slate-600" 
+                                placeholder="+ Add tag" data-action="add-new-tag">
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderEditor() {
+                const { resume } = appData;
+                let html = `
+                    <div class="neu-flat p-8 space-y-6 lg:col-span-2">
+                        <h3 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="user" class="text-indigo-600"></i> Personal Information
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            ${Object.keys(resume.personal).map(k => `
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${k}</label>
+                                    <input type="text" class="editor-input" data-section="personal" data-field="${k}" value="${resume.personal[k] || ''}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="neu-flat p-8 space-y-6 lg:col-span-2">
+                        <h3 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="align-left" class="text-indigo-600"></i> Professional Summary
+                        </h3>
+                        <textarea class="editor-input h-32 resize-none" data-section="summary" data-field="default">${resume.summary.default || ''}</textarea>
+                    </div>
+                `;
+
+                appData.visibleSections.forEach(key => {
+                    const customSection = resume.customSections?.find(s => s.key === key);
+                    const title = customSection ? customSection.title : key;
+                    const items = customSection ? customSection.items : resume[key] || [];
+
+                    html += `
+                        <div class="neu-flat p-8 space-y-6" data-section-key="${key}">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-black text-slate-900 dark:text-white capitalize">${title}</h3>
+                                <div class="flex gap-2">
+                                    ${customSection ? `
+                                        <button class="btn-icon text-rose-500" data-action="delete-custom-section" data-custom-key="${key}">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    ` : ''}
+                                    <button class="btn-icon text-indigo-600" data-action="add" data-section="${key}" ${customSection ? `data-custom-key="${key}"` : ''}>
+                                        <i data-lucide="plus" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                ${items.map(item => renderItemEditor(key, item, !!customSection)).join('')}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                ui.editorContainer.innerHTML = html;
+                lucide.createIcons();
+            }
+
+            function renderItemEditor(section, item, isCustom = false) {
+                const controls = `
+                    <div class="absolute top-4 right-4 flex gap-3">
+                        <button class="text-slate-300 hover:text-indigo-500 transition-colors text-[10px] font-bold uppercase" 
+                            data-action="clear" data-section="${section}" data-id="${item.id}" ${isCustom ? `data-custom-key="${section}"` : ''}>Clear</button>
+                        <button class="text-slate-300 hover:text-rose-500 transition-colors" 
+                            data-action="delete" data-section="${section}" data-id="${item.id}" ${isCustom ? `data-custom-key="${section}"` : ''}>
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+
+                if (section === 'experience') {
+                    return `
+                        <div class="relative p-6 neu-pressed-sm space-y-4 rounded-2xl" data-id="${item.id}">
+                            ${controls}
+                            <input type="text" placeholder="Job Title" class="bg-transparent border-none outline-none font-bold text-lg w-full text-slate-800 dark:text-slate-100 placeholder-slate-300" data-field="title" value="${item.title || ''}">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" placeholder="Company" class="bg-transparent border-none outline-none text-sm text-indigo-600 font-medium placeholder-indigo-200" data-field="company" value="${item.company || ''}">
+                                <input type="text" placeholder="Dates" class="bg-transparent border-none outline-none text-sm text-slate-400 text-right placeholder-slate-200" data-field="dates" value="${item.dates || ''}">
+                            </div>
+                            <textarea placeholder="Accomplishments (one per line)..." class="bg-transparent border-none outline-none text-sm w-full h-24 resize-none text-slate-600 dark:text-slate-400 placeholder-slate-300" data-field="points">${item.points || ''}</textarea>
+                            ${renderTagCloud(item.tags)}
+                        </div>
+                    `;
+                }
+
+                const fields = section === 'education' ? { f1: 'degree', f2: 'school', f3: 'dates' } : { f1: 'name', f2: 'role', f3: 'date' };
+                if (isCustom) { fields.f1 = 'title'; fields.f2 = 'description'; fields.f3 = 'date'; }
+
+                return `
+                    <div class="relative p-6 neu-pressed-sm space-y-4 rounded-2xl" data-id="${item.id}">
+                        ${controls}
+                        <input type="text" placeholder="${fields.f1.charAt(0).toUpperCase() + fields.f1.slice(1)}" class="bg-transparent border-none outline-none font-bold text-lg w-full text-slate-800 dark:text-slate-100 placeholder-slate-300" data-field="${fields.f1}" value="${item[fields.f1] || ''}">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="${fields.f2.charAt(0).toUpperCase() + fields.f2.slice(1)}" class="bg-transparent border-none outline-none text-sm text-indigo-600 font-medium placeholder-indigo-200" data-field="${fields.f2}" value="${item[fields.f2] || ''}">
+                            <input type="text" placeholder="${fields.f3.charAt(0).toUpperCase() + fields.f3.slice(1)}" class="bg-transparent border-none outline-none text-sm text-slate-400 text-right placeholder-slate-200" data-field="${fields.f3}" value="${item[fields.f3] || ''}">
+                        </div>
+                        ${renderTagCloud(item.tags)}
+                    </div>
+                `;
+            }
+
+            function renderVisibilityList() {
+                const standardKeys = ['experience', 'education', 'skills', 'projects', 'achievements', 'certifications', 'courses', 'service', 'publications'];
+                const customKeys = (appData.resume.customSections || []).map(s => s.key);
+                const allKeys = [...standardKeys, ...customKeys];
+
+                ui.sectionVisibilityList.innerHTML = allKeys.map(key => {
+                    const custom = appData.resume.customSections?.find(s => s.key === key);
+                    const title = custom ? custom.title : key;
+                    return `
+                        <label class="flex items-center justify-between p-4 neu-pressed-sm cursor-pointer group rounded-xl">
+                            <span class="capitalize font-bold text-slate-700 dark:text-slate-200">${title}</span>
+                            <input type="checkbox" class="w-5 h-5 rounded-lg border-none bg-slate-200 text-indigo-600 focus:ring-indigo-500" 
+                                data-section-key="${key}" ${appData.visibleSections.includes(key) ? 'checked' : ''}>
+                        </label>
+                    `;
+                }).join('');
+            }
+
+            function renderPresets() {
+                ui.audiencePreset.innerHTML = Object.keys(appData.presets).map(k => `<option value="${k}">${appData.presets[k].name}</option>`).join('');
+                ui.presetList.innerHTML = Object.keys(appData.presets).filter(k => k !== 'custom' && k !== 'everything').map(key => `
+                    <div class="relative p-6 neu-pressed-sm rounded-2xl" data-id="${key}">
+                        <div class="absolute top-4 right-4">
+                            <button class="text-rose-500" data-action="delete-preset" data-id="${key}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <p class="font-bold text-slate-800 dark:text-slate-100 mb-2">${appData.presets[key].name}</p>
+                        ${renderTagCloud(appData.presets[key].tags, true)}
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            }
+
+            // --- GENERATION LOGIC ---
+            async function callGemini(prompt, schema) {
+                const apiKey = ""; // Placeholder
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", responseSchema: schema } };
+                try {
+                    const res = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!res.ok) throw new Error(`API Error: ${res.status}`);
+                    const result = await res.json();
+                    return JSON.parse(result.candidates[0].content.parts[0].text);
+                } catch (e) { console.error(e); throw e; }
+            }
+
+            ui.generateButton.addEventListener('click', async () => {
+                ui.generateButton.disabled = true;
+                ui.generateButtonText.textContent = 'Generating...';
+                ui.generatorError.textContent = "";
+
+                const presetKey = ui.audiencePreset.value;
+                const format = ui.formatPreset.value;
+                const useAiRewrite = ui.aiRewriteToggle.checked;
+                const jobDesc = ui.jobDescription.value;
+
+                let filteredResume = JSON.parse(JSON.stringify(appData.resume));
+                const requiredTags = appData.presets[presetKey]?.tags || [];
+                if (presetKey !== 'everything' && presetKey !== 'custom' && requiredTags.length > 0) {
+                    Object.keys(filteredResume).forEach(key => {
+                        if (Array.isArray(filteredResume[key])) {
+                            filteredResume[key] = filteredResume[key].filter(item => (item.tags || []).some(tag => requiredTags.includes(tag)));
+                        }
+                    });
+                }
+
+                const prompt = `Create a ${format} for Devin Dushanek tailored for: ${jobDesc || appData.presets[presetKey].name}. Data: ${JSON.stringify(filteredResume)}. ${useAiRewrite ? 'Rewrite for impact.' : 'Use verbatim text.'} Return JSON.`;
+                const schema = { type: "OBJECT", properties: { summary: { type: "STRING" }, experience: { type: "ARRAY", items: { type: "OBJECT", properties: { title: { type: "STRING" }, company: { type: "STRING" }, dates: { type: "STRING" }, points: { type: "STRING" } } } }, education: { type: "ARRAY", items: { type: "OBJECT", properties: { degree: { type: "STRING" }, school: { type: "STRING" }, dates: { type: "STRING" } } } }, skills: { type: "ARRAY", items: { type: "OBJECT", properties: { category: { type: "STRING" }, items: { type: "STRING" } } } } } };
+
+                try {
+                    const data = await callGemini(prompt, schema);
+                    renderPreview(data);
+                    ui.exportContainer.classList.remove('hidden');
+                } catch (e) { ui.generatorError.textContent = "Generation failed. Check API key."; }
+                finally { ui.generateButton.disabled = false; ui.generateButtonText.textContent = 'Generate Resume'; }
+            });
+
+            function renderPreview(data) {
+                const { personal } = appData.resume;
+                const renderList = (items, title, template) => (items && items.length > 0) ? `<section class="mb-6"><h2 class="text-sm font-black border-b-2 border-slate-200 pb-1 mb-3 uppercase tracking-widest text-slate-400">${title}</h2>${items.map(template).join('')}</section>` : '';
+
+                const templates = {
+                    experience: e => `<div class="mb-4"><div class="flex justify-between items-baseline"><h3 class="text-base font-bold text-slate-900">${e.title}</h3><span class="text-xs font-bold text-slate-400">${e.dates}</span></div><p class="text-sm font-semibold text-indigo-600 mb-2">${e.company}</p><ul class="list-disc list-inside text-sm text-slate-600 space-y-1">${(e.points || '').split('\n').map(p => `<li>${p}</li>`).join('')}</ul></div>`,
+                    education: e => `<div class="mb-3"><div class="flex justify-between items-baseline"><h3 class="text-base font-bold text-slate-900">${e.degree}</h3><span class="text-xs font-bold text-slate-400">${e.dates}</span></div><p class="text-sm font-medium text-slate-600">${e.school}</p></div>`,
+                    skills: s => `<div class="mb-2 text-sm"><span class="font-bold text-slate-900">${s.category}:</span> <span class="text-slate-600">${s.items}</span></div>`
+                };
+
+                ui.previewContainer.innerHTML = `
+                    <header class="text-center mb-10">
+                        <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-2">${personal.name}</h1>
+                        <p class="text-sm font-bold text-indigo-600 uppercase tracking-widest mb-2">${personal.credentials}</p>
+                        <p class="text-xs font-medium text-slate-400">${personal.location} • ${personal.email} • ${personal.phone}</p>
+                    </header>
+                    ${data.summary ? `<section class="mb-8"><h2 class="text-sm font-black border-b-2 border-slate-200 pb-1 mb-3 uppercase tracking-widest text-slate-400">Profile</h2><p class="text-sm text-slate-600 leading-relaxed">${data.summary}</p></section>` : ''}
+                    ${renderList(data.experience, 'Experience', templates.experience)}
+                    ${renderList(data.education, 'Education', templates.education)}
+                    ${renderList(data.skills, 'Skills', templates.skills)}
+                `;
+                ui.previewContainer.setAttribute('contenteditable', 'true');
+            }
+
+            // --- EVENT LISTENERS ---
+            ui.addCustomSectionBtn.addEventListener('click', () => {
+                const title = prompt("Enter section title:");
+                if (title) {
+                    const key = `custom-${Date.now()}`;
+                    appData.resume.customSections.push({ key, title, items: [] });
+                    appData.visibleSections.push(key);
+                    renderEditor();
+                    saveData();
+                }
+            });
+
+            ui.manageTagsBtn.addEventListener('click', () => { renderPresets(); ui.presetModal.classList.remove('hidden'); });
+            ui.closePresetModalBtn.addEventListener('click', () => ui.presetModal.classList.add('hidden'));
+
+            ui.addPresetBtn.addEventListener('click', () => {
+                const name = ui.newPresetName.value.trim();
+                if (name) {
+                    const key = name.toLowerCase().replace(/\s+/g, '-');
+                    appData.presets[key] = { name, tags: [...newPresetTags] };
+                    ui.newPresetName.value = ""; newPresetTags = []; renderPresets(); updateAllTags(); saveData();
+                }
+            });
+
+            ui.addMasterTagBtn.addEventListener('click', () => {
+                const tag = ui.newMasterTag.value.trim();
+                if (tag) { appData.masterTags.add(tag); ui.newMasterTag.value = ""; updateAllTags(); saveData(); }
+            });
+
+            document.body.addEventListener('click', e => {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
+                const { action, section, id, tagValue, customKey } = target.dataset;
+
+                if (action === 'show-generator') { ui.editorView.classList.add('hidden'); ui.generatorView.classList.remove('hidden'); renderPresets(); }
+                if (action === 'show-editor') { ui.generatorView.classList.add('hidden'); ui.editorView.classList.remove('hidden'); }
+                if (action === 'add') {
+                    const newItem = { id: `new${Date.now()}`, tags: [] };
+                    if (customKey) appData.resume.customSections.find(s => s.key === customKey).items.push(newItem);
+                    else appData.resume[section].push(newItem);
+                    renderEditor();
+                }
+                if (action === 'delete') {
+                    if (customKey) appData.resume.customSections.find(s => s.key === customKey).items = appData.resume.customSections.find(s => s.key === customKey).items.filter(i => i.id != id);
+                    else appData.resume[section] = appData.resume[section].filter(i => i.id != id);
+                    renderEditor();
+                }
+                if (action === 'clear') {
+                    const items = customKey ? appData.resume.customSections.find(s => s.key === customKey).items : appData.resume[section];
+                    const item = items.find(i => i.id == id);
+                    if (item) Object.keys(item).forEach(k => { if (k !== 'id' && k !== 'tags') item[k] = ''; });
+                    renderEditor();
+                }
+                if (action === 'delete-custom-section') {
+                    appData.resume.customSections = appData.resume.customSections.filter(s => s.key !== customKey);
+                    appData.visibleSections = appData.visibleSections.filter(s => s !== customKey);
+                    renderEditor();
+                }
+                if (action === 'toggle-tag') {
+                    const itemID = e.target.closest('[data-id]')?.dataset.id;
+                    const sKey = e.target.closest('[data-section-key]')?.dataset.sectionKey;
+                    const presetID = e.target.closest('[data-id]')?.dataset.id;
+
+                    if (itemID && sKey) {
+                        const item = (appData.resume.customSections?.find(s => s.key === sKey)?.items || appData.resume[sKey]).find(i => i.id == itemID);
+                        if (item.tags.includes(tagValue)) item.tags = item.tags.filter(t => t !== tagValue);
+                        else item.tags.push(tagValue);
+                        renderEditor();
+                    } else if (presetID && appData.presets[presetID]) {
+                        const p = appData.presets[presetID];
+                        if (p.tags.includes(tagValue)) p.tags = p.tags.filter(t => t !== tagValue);
+                        else p.tags.push(tagValue);
+                        renderPresets();
+                    }
+                }
+                if (action === 'delete-master-tag') {
+                    appData.masterTags.delete(tagValue);
+                    Object.values(appData.presets).forEach(p => p.tags = p.tags.filter(t => t !== tagValue));
+                    Object.values(appData.resume).forEach(s => { if (Array.isArray(s)) s.forEach(i => i.tags = i.tags.filter(t => t !== tagValue)); });
+                    updateAllTags(); renderEditor(); renderPresets(); saveData();
+                }
+            });
+
+            ui.editorContainer.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && e.target.dataset.action === 'add-new-tag') {
+                    e.preventDefault();
+                    const tag = e.target.value.trim();
+                    if (tag) {
+                        const id = e.target.closest('[data-id]').dataset.id;
+                        const sKey = e.target.closest('[data-section-key]').dataset.sectionKey;
+                        const item = (appData.resume.customSections?.find(s => s.key === sKey)?.items || appData.resume[sKey]).find(i => i.id == id);
+                        if (!item.tags.includes(tag)) { item.tags.push(tag); appData.masterTags.add(tag); updateAllTags(); }
+                        e.target.value = ""; renderEditor();
+                    }
+                }
+            });
+
+            // --- SUGGEST EDIT ---
+            document.addEventListener('mouseup', e => {
+                if (ui.previewContainer.contains(e.target)) {
+                    const sel = window.getSelection();
+                    const text = sel.toString().trim();
+                    if (text) {
+                        savedSelection = sel.getRangeAt(0).cloneRange();
+                        const rect = savedSelection.getBoundingClientRect();
+                        ui.suggestEditBtn.style.left = `${rect.left + window.scrollX}px`;
+                        ui.suggestEditBtn.style.top = `${rect.top + window.scrollY - 40}px`;
+                        ui.suggestEditBtn.style.display = 'block';
+                    } else ui.suggestEditBtn.style.display = 'none';
+                } else if (!ui.suggestEditBtn.contains(e.target)) ui.suggestEditBtn.style.display = 'none';
+            });
+
+            ui.suggestEditBtn.addEventListener('click', async () => {
+                ui.suggestionsModal.classList.remove('hidden');
+                ui.suggestionsContent.innerHTML = '<p class="text-center py-10 text-slate-400">Generating suggestions...</p>';
+                const text = savedSelection.toString();
+                const prompt = `Rewrite for impact: "${text}". Return JSON {suggestion: "..."}`;
+                try {
+                    const res = await callGemini(prompt, { type: "OBJECT", properties: { suggestion: { type: "STRING" } } });
+                    ui.suggestionsContent.innerHTML = `<div class="p-6 neu-pressed-sm rounded-2xl"><p class="text-sm text-slate-600 leading-relaxed">${res.suggestion}</p></div>`;
+                    ui.useSuggestionBtn.classList.remove('hidden');
+                    ui.useSuggestionBtn.onclick = () => {
+                        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedSelection);
+                        document.execCommand('insertText', false, res.suggestion);
+                        ui.suggestionsModal.classList.add('hidden');
+                    };
+                } catch (e) { ui.suggestionsContent.innerHTML = '<p class="text-rose-500">Failed.</p>'; }
+            });
+
+            ui.closeSuggestionsModalBtn.addEventListener('click', () => ui.suggestionsModal.classList.add('hidden'));
+
+            // --- EXPORTS ---
+            ui.exportPdfButton.addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                html2canvas(document.getElementById('resume-preview-wrapper'), { scale: 2 }).then(canvas => {
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 210, (canvas.height * 210) / canvas.width);
+                    pdf.save('resume.pdf');
+                });
+            });
+
+            ui.exportExcelButton.addEventListener('click', () => {
+                let csv = "Section,Field,Value\n";
+                Object.keys(appData.resume).forEach(k => {
+                    if (Array.isArray(appData.resume[k])) appData.resume[k].forEach(i => Object.keys(i).forEach(f => csv += `"${k}","${f}","${String(i[f]).replace(/"/g, '""')}"\n`));
+                    else Object.keys(appData.resume[k]).forEach(f => csv += `"${k}","${f}","${String(appData.resume[k][f]).replace(/"/g, '""')}"\n`);
+                });
+                saveAs(new Blob([csv], { type: "text/csv" }), 'resume_data.csv');
+            });
+
+            ui.exportHtmlButton.addEventListener('click', () => {
+                const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume</title><style>body{font-family:sans-serif;padding:40px;}</style></head><body>${document.getElementById('resume-preview').innerHTML}</body></html>`;
+                saveAs(new Blob([html], { type: "text/html" }), 'resume.html');
+            });
+
+            loadData();
+            renderEditor();
+            ui.saveButton.addEventListener('click', saveData);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1781 @@
+{
+  "emptyTextFrames": [
+    {
+      "id": 75603,
+      "location": {
+        "page": "1",
+        "bounds": {
+          "top": 9.51054211832679,
+          "left": 1.22562367038587,
+          "bottom": 13.24640431722,
+          "right": 8.74924616738219
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104160,
+      "location": {
+        "page": "2",
+        "bounds": {
+          "top": 8.15832519531251,
+          "left": 4.2463497639974,
+          "bottom": 8.40832519531251,
+          "right": 5.3413497639974
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104271,
+      "location": {
+        "page": "3",
+        "bounds": {
+          "top": 1.80000000000001,
+          "left": 1.375,
+          "bottom": 3.68083214653863,
+          "right": 8.25388888888888
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103919,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.24000000000002,
+          "left": 14.5675,
+          "bottom": 6.49000000000002,
+          "right": 15.7525
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104028,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.24000000000002,
+          "left": 17.2025,
+          "bottom": 6.49000000000002,
+          "right": 18.3475
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103974,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.24000000000002,
+          "left": 15.815,
+          "bottom": 6.49000000000002,
+          "right": 17.14
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103865,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.24000000000002,
+          "left": 13.414,
+          "bottom": 6.49000000000002,
+          "right": 14.509
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102979,
+      "location": {
+        "page": "1",
+        "bounds": {
+          "top": 6.71944444444445,
+          "left": 0.63694444444444,
+          "bottom": 7.03055555555557,
+          "right": 2.34705555555556
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 100464,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": 2.25,
+          "left": 12.5,
+          "bottom": 9.25000000000001,
+          "right": 24.8847872741497
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 44734,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": 4.03858868601057,
+          "left": 0.60416672580058,
+          "bottom": 5.81539064338481,
+          "right": 37.1999999980057
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 45590,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 4.03858868601057,
+          "left": -20.0761708008551,
+          "bottom": 5.81539064338479,
+          "right": 19.3958333333333
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101246,
+      "location": {
+        "page": "9",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 88014,
+      "location": {
+        "page": "14",
+        "bounds": {
+          "top": 9.50694444444439,
+          "left": 14.7969444444444,
+          "bottom": 9.74305555555553,
+          "right": 18.7830555555556
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 66200,
+      "location": {
+        "page": "15",
+        "bounds": {
+          "top": 4.32784217302204,
+          "left": 0.25,
+          "bottom": 9.25,
+          "right": 3.125
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78163,
+      "location": {
+        "page": "15",
+        "bounds": {
+          "top": 0.25,
+          "left": 6.375,
+          "bottom": 2.47384845618808,
+          "right": 9.25
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78219,
+      "location": {
+        "page": "15",
+        "bounds": {
+          "top": 0.25,
+          "left": 0.25,
+          "bottom": 3.61960647318218,
+          "right": 3.125
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 89037,
+      "location": {
+        "page": "16",
+        "bounds": {
+          "top": 0.25,
+          "left": 10.75,
+          "bottom": 3.62821732998011,
+          "right": 13.625
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78135,
+      "location": {
+        "page": "16",
+        "bounds": {
+          "top": 6.77883965702406,
+          "left": 16.875,
+          "bottom": 9,
+          "right": 19.75
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78107,
+      "location": {
+        "page": "16",
+        "bounds": {
+          "top": 4.86910071205223,
+          "left": 16.92,
+          "bottom": 6.3192873567224,
+          "right": 19.795
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78078,
+      "location": {
+        "page": "16",
+        "bounds": {
+          "top": 0.25,
+          "left": 16.875,
+          "bottom": 4.4095484117506,
+          "right": 19.75
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 93323,
+      "location": {
+        "page": "19",
+        "bounds": {
+          "top": 6.8513625867859,
+          "left": 3.48,
+          "bottom": 7.67264770611208,
+          "right": 5.73
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 93293,
+      "location": {
+        "page": "19",
+        "bounds": {
+          "top": 0.35878473866342,
+          "left": 0.3,
+          "bottom": 2.27096767575507,
+          "right": 2.55
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 93383,
+      "location": {
+        "page": "20",
+        "bounds": {
+          "top": 0.66000000000001,
+          "left": 16.645,
+          "bottom": 1.31487620720923,
+          "right": 18.895
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 93354,
+      "location": {
+        "page": "20",
+        "bounds": {
+          "top": 3.625,
+          "left": 10.63,
+          "bottom": 4.27987620720923,
+          "right": 12.88
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101425,
+      "location": {
+        "page": "23",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101520,
+      "location": {
+        "page": "27",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101611,
+      "location": {
+        "page": "33",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70434,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 8.00160092941021,
+          "left": 13.1048135493673,
+          "bottom": 8.25160092941021,
+          "right": 13.3548135493673
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70383,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 0.89844580383937,
+          "left": 10.66,
+          "bottom": 7.63455691495048,
+          "right": 15.3961111111111
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70922,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 4.95400135939493,
+          "left": 11.9586111111111,
+          "bottom": 7.07900135939493,
+          "right": 14.0836111111111
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70830,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 3.20400135939488,
+          "left": 11.5836416287513,
+          "bottom": 7.07900135939488,
+          "right": 14.4586416287513
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70737,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 2.95747358161715,
+          "left": 11.3370833333333,
+          "bottom": 7.3255291371727,
+          "right": 14.7051388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70529,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 1.20747358161715,
+          "left": 10.9620833333333,
+          "bottom": 7.3255291371727,
+          "right": 15.0801388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70783,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 4.70747358161715,
+          "left": 11.7120833333333,
+          "bottom": 7.3255291371727,
+          "right": 14.3301388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70691,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 1.4462394207582,
+          "left": 11.2155555555556,
+          "bottom": 7.0712394207582,
+          "right": 14.8405555555556
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70645,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 4.76997358161715,
+          "left": 11.7745833333333,
+          "bottom": 7.2630291371727,
+          "right": 14.2676388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70575,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 3.0199735816171,
+          "left": 11.3995833333333,
+          "bottom": 7.26302913717265,
+          "right": 14.6426388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70482,
+      "location": {
+        "page": "34",
+        "bounds": {
+          "top": 1.2699735816171,
+          "left": 11.0245833333333,
+          "bottom": 7.26302913717265,
+          "right": 15.0176388888889
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101696,
+      "location": {
+        "page": "39",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101896,
+      "location": {
+        "page": "47",
+        "bounds": {
+          "top": 2.25000000000005,
+          "left": -4.88478727414971,
+          "bottom": 9.25000000000005,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 80330,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.53812421900451,
+          "left": 15.3371052135247,
+          "bottom": 7.21579897152363,
+          "right": 19.0147799660437
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 80284,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.53308196540881,
+          "left": 15.3371990817952,
+          "bottom": 7.21081040449195,
+          "right": 19.0149275208783
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 80238,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.37687861242628,
+          "left": 15.1764699692748,
+          "bottom": 7.37704457810034,
+          "right": 19.1766359349488
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 80192,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.1289512021982,
+          "left": 14.9279321967188,
+          "bottom": 7.62497198832938,
+          "right": 19.4239529828501
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 80168,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 4.56527837448286,
+          "left": 16.39,
+          "bottom": 6.20007331432751,
+          "right": 18.0247949398447
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 55798,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.37658759574939,
+          "left": 15.1842382839559,
+          "bottom": 7.37733559477808,
+          "right": 19.1849862829847
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 55169,
+      "location": {
+        "page": "48",
+        "bounds": {
+          "top": 3.1375944988717,
+          "left": 14.9447500359815,
+          "bottom": 7.61621581662661,
+          "right": 19.4233713537366
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103397,
+      "location": {
+        "page": "49",
+        "bounds": {
+          "top": 0.90357533106852,
+          "left": 3.81,
+          "bottom": 1.21468644217965,
+          "right": 5.345
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103538,
+      "location": {
+        "page": "49",
+        "bounds": {
+          "top": 0.90357533106852,
+          "left": 7.31202213474682,
+          "bottom": 1.21468644217965,
+          "right": 8.81768511346371
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103484,
+      "location": {
+        "page": "49",
+        "bounds": {
+          "top": 0.90357533106852,
+          "left": 5.46284808983121,
+          "bottom": 1.21468644217965,
+          "right": 7.19417404491561
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103231,
+      "location": {
+        "page": "49",
+        "bounds": {
+          "top": 0.90357533106852,
+          "left": 2.325,
+          "bottom": 1.21468644217965,
+          "right": 3.746
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 98453,
+      "location": {
+        "page": "49",
+        "bounds": {
+          "top": 1.68748459951571,
+          "left": 0.94415864443146,
+          "bottom": 3.31251540048435,
+          "right": 2.56918944540014
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 97765,
+      "location": {
+        "page": "50",
+        "bounds": {
+          "top": 2.68166218115893,
+          "left": 16.6488666444144,
+          "bottom": 4.30667183034307,
+          "right": 18.2738762935985
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 96302,
+      "location": {
+        "page": "51",
+        "bounds": {
+          "top": 6.06388888888892,
+          "left": 3.62575635779795,
+          "bottom": 6.16111068725589,
+          "right": 6.28575635779795
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102573,
+      "location": {
+        "page": "63",
+        "bounds": {
+          "top": 2.25,
+          "left": -4.88478727414971,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 103057,
+      "location": {
+        "page": "90",
+        "bounds": {
+          "top": 0.96469148423906,
+          "left": 10.89,
+          "bottom": 1.27580259535009,
+          "right": 12.32
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 58316,
+      "location": {
+        "page": "93",
+        "bounds": {
+          "top": 4.69116684377089,
+          "left": 3.65629824206574,
+          "bottom": 5.54309604293263,
+          "right": 14.5676913649101
+        }
+      },
+      "label": "Unlabeled"
+    }
+  ],
+  "placeholderText": [
+    
+  ],
+  "emptyGraphicFrames": [
+    {
+      "id": 75600,
+      "location": {
+        "page": "1",
+        "bounds": {
+          "top": 9.50055318196614,
+          "left": 2.55999999999999,
+          "bottom": 10,
+          "right": 7.43460094401042
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 99179,
+      "location": {
+        "page": "3",
+        "bounds": {
+          "top": 0,
+          "left": 0,
+          "bottom": 10,
+          "right": 0.32
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104129,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": -9.97999999999999,
+          "left": -7.42,
+          "bottom": 1.9272002891404,
+          "right": 14.6955443789782
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104130,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": -10.6950251700235,
+          "left": -6.52946679562484,
+          "bottom": 3.14408974820577,
+          "right": 14.770635852708
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104092,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": 8.29506182886329,
+          "left": -3.53871840345937,
+          "bottom": 18.3490094994331,
+          "right": 20.1850468339053
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104094,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": 6.8104694428241,
+          "left": -3.70284902754709,
+          "bottom": 22.1270687456642,
+          "right": 19.7018793984691
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 71712,
+      "location": {
+        "page": "6",
+        "bounds": {
+          "top": 4.67500000000001,
+          "left": 3.29298993027438,
+          "bottom": 7.17749999999999,
+          "right": 3.41798993027438
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104141,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": -7.17499999999999,
+          "left": 5.25000000000001,
+          "bottom": 1.30500291111673,
+          "right": 29.6149033222477
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104142,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": -14.8860748601315,
+          "left": 4.93819575500945,
+          "bottom": 4.65863338967491,
+          "right": 29.8915065367021
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104091,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.11500000000003,
+          "left": 13.414,
+          "bottom": 6.24000000000003,
+          "right": 15.170946267022
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104085,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 6.14,
+          "left": 17.14,
+          "bottom": 7.89694626702202,
+          "right": 17.2025
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 71754,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 4.67500000000001,
+          "left": 13.2892918565538,
+          "bottom": 6.43194626702202,
+          "right": 13.4142918565538
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102839,
+      "location": {
+        "page": "2",
+        "bounds": {
+          "top": -1.84139962402283,
+          "left": 2.1579709048848,
+          "bottom": 6.89100989553328,
+          "right": 23.5549618842734
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102841,
+      "location": {
+        "page": "2",
+        "bounds": {
+          "top": -8.98219970260612,
+          "left": -1.12,
+          "bottom": 10.2,
+          "right": 23.8223667339012
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101242,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": 4.625,
+          "left": 15.48,
+          "bottom": 5,
+          "right": 15.89
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101181,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": 2.24,
+          "left": 16.16,
+          "bottom": 3.24,
+          "right": 17.16
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101178,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": 3.59900000000003,
+          "left": 15.58,
+          "bottom": 3.97400000000003,
+          "right": 15.99
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 100463,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": 2.25,
+          "left": 12.5,
+          "bottom": 9.25,
+          "right": 26.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70039,
+      "location": {
+        "page": "7",
+        "bounds": {
+          "top": 2.07348928416415,
+          "left": 7.2776348967634,
+          "bottom": 4.04585438740075,
+          "right": 9.25
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 70036,
+      "location": {
+        "page": "8",
+        "bounds": {
+          "top": 1.56,
+          "left": 15.42,
+          "bottom": 4.06,
+          "right": 17.92
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101343,
+      "location": {
+        "page": "9",
+        "bounds": {
+          "top": 2.23999999999998,
+          "left": 6.16,
+          "bottom": 3.23999999999998,
+          "right": 7.16
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101245,
+      "location": {
+        "page": "9",
+        "bounds": {
+          "top": 2.25,
+          "left": -6.5,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78722,
+      "location": {
+        "page": "15",
+        "bounds": {
+          "top": 5.00705511938653,
+          "left": 0.625,
+          "bottom": 6.42050689961371,
+          "right": 0.75
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 87658,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 6.43014932286901,
+          "left": 4.73379267834795,
+          "bottom": 7.55514932286901,
+          "right": 6.73379267834795
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86776,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 5.00999999999999,
+          "left": 2.19186262414007,
+          "bottom": 6.25999999999999,
+          "right": 4.19186262414007
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86710,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 7.46408602771443,
+          "left": 7.24999872843422,
+          "bottom": 8.58908602771443,
+          "right": 9.24999872843422
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86840,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 3.48529864573801,
+          "left": 6.23249999999999,
+          "bottom": 4.61029864573801,
+          "right": 8.23249999999999
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86564,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 3.67560632428164,
+          "left": 0.6231442512349,
+          "bottom": 4.17560632428164,
+          "right": 2.6231442512349
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86539,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 0.83086752560694,
+          "left": 5.5,
+          "bottom": 1.95586752560694,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86563,
+      "location": {
+        "page": "17",
+        "bounds": {
+          "top": 0.64516748753936,
+          "left": 0.37499999999998,
+          "bottom": 1.89516748753936,
+          "right": 2.87499999999998
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86907,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 3.11582363093945,
+          "left": 10.75,
+          "bottom": 4.24082363093946,
+          "right": 12.75
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86906,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 0.25,
+          "left": 11.7504014923176,
+          "bottom": 1.74999999999997,
+          "right": 14.7504014923176
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 87536,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 5.43416666666667,
+          "left": 12.2045459621927,
+          "bottom": 6.68416666666667,
+          "right": 13.9545459621927
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86910,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 6.75,
+          "left": 17.625,
+          "bottom": 8,
+          "right": 19.625
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86911,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 0.47798111863224,
+          "left": 17.4001638436991,
+          "bottom": 1.60298111863224,
+          "right": 19.1501638436991
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86908,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 1.71772900103499,
+          "left": 18.0659179176998,
+          "bottom": 2.96772900103499,
+          "right": 20.3159179176998
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86912,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 7.02971733959867,
+          "left": 14.5569669943688,
+          "bottom": 7.70472631929718,
+          "right": 16.5569669943688
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 86909,
+      "location": {
+        "page": "18",
+        "bounds": {
+          "top": 4.37659343543821,
+          "left": 14.45,
+          "bottom": 5.50159343543821,
+          "right": 16.45
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 50314,
+      "location": {
+        "page": "19",
+        "bounds": {
+          "top": 2.10083333333334,
+          "left": 1.98083333333333,
+          "bottom": 3.23916666666666,
+          "right": 3.11916666666667
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 91897,
+      "location": {
+        "page": "19",
+        "bounds": {
+          "top": 0.75,
+          "left": 1.5,
+          "bottom": 9.25,
+          "right": 18.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 78044,
+      "location": {
+        "page": "21",
+        "bounds": {
+          "top": 8.74999999999998,
+          "left": 9.145,
+          "bottom": 9.24999999999998,
+          "right": 9.25
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101424,
+      "location": {
+        "page": "23",
+        "bounds": {
+          "top": 2.25,
+          "left": -6.5,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 85007,
+      "location": {
+        "page": "23",
+        "bounds": {
+          "top": 8.43755882960856,
+          "left": 0,
+          "bottom": 10,
+          "right": 2.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101519,
+      "location": {
+        "page": "27",
+        "bounds": {
+          "top": 2.25,
+          "left": -6.5,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 79362,
+      "location": {
+        "page": "29",
+        "bounds": {
+          "top": 6.25498362631465,
+          "left": 7.54,
+          "bottom": 6.50498362631465,
+          "right": 7.85
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104407,
+      "location": {
+        "page": "29",
+        "bounds": {
+          "top": 8.01431407363665,
+          "left": -1.16948679418136,
+          "bottom": 18.0682617442065,
+          "right": 22.5542784431833
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104408,
+      "location": {
+        "page": "29",
+        "bounds": {
+          "top": 6.52972168759748,
+          "left": -1.33361741826908,
+          "bottom": 21.8463209904376,
+          "right": 22.0711110077471
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104411,
+      "location": {
+        "page": "30",
+        "bounds": {
+          "top": -5.3978025380339,
+          "left": 5.00000000000002,
+          "bottom": 3.08220037308274,
+          "right": 29.3649033222477
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104412,
+      "location": {
+        "page": "30",
+        "bounds": {
+          "top": -13.1088773981654,
+          "left": 4.68819575500946,
+          "bottom": 6.43583085164098,
+          "right": 29.6415065367021
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 79367,
+      "location": {
+        "page": "30",
+        "bounds": {
+          "top": 6.24997096048992,
+          "left": 12.6875,
+          "bottom": 6.49997096048992,
+          "right": 12.9975
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104409,
+      "location": {
+        "page": "31",
+        "bounds": {
+          "top": -7.58183515773852,
+          "left": -3.47680218474525,
+          "bottom": 2.4313252406127,
+          "right": 20.2759624382418
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104410,
+      "location": {
+        "page": "31",
+        "bounds": {
+          "top": -11.431438015504,
+          "left": -3.00397567298903,
+          "bottom": 3.95542952887662,
+          "right": 20.4420366937163
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 79467,
+      "location": {
+        "page": "32",
+        "bounds": {
+          "top": 6.25485980272636,
+          "left": 11.2533002585819,
+          "bottom": 6.50485980272636,
+          "right": 11.5633002585819
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104414,
+      "location": {
+        "page": "32",
+        "bounds": {
+          "top": 8.22217976521339,
+          "left": 4.62032371181911,
+          "bottom": 18.2761274357832,
+          "right": 28.3440889491838
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104415,
+      "location": {
+        "page": "32",
+        "bounds": {
+          "top": 6.73758737917418,
+          "left": 4.45619308773139,
+          "bottom": 22.0541866820143,
+          "right": 27.8609215137476
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101610,
+      "location": {
+        "page": "33",
+        "bounds": {
+          "top": 2.25,
+          "left": -6.5,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 77060,
+      "location": {
+        "page": "35",
+        "bounds": {
+          "top": 7.50277964274089,
+          "left": 3.72380002192493,
+          "bottom": 7.87777964274089,
+          "right": 4.13380002192493
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 77061,
+      "location": {
+        "page": "36",
+        "bounds": {
+          "top": 5.41944630940755,
+          "left": 13.76,
+          "bottom": 5.79444630940755,
+          "right": 14.17
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104419,
+      "location": {
+        "page": "36",
+        "bounds": {
+          "top": -4.01055660170919,
+          "left": 3.14964090587635,
+          "bottom": 4.46944630940753,
+          "right": 27.514544228124
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104421,
+      "location": {
+        "page": "36",
+        "bounds": {
+          "top": -11.7216314618407,
+          "left": 2.83783666088579,
+          "bottom": 7.82307678796572,
+          "right": 27.7911474425784
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104422,
+      "location": {
+        "page": "37",
+        "bounds": {
+          "top": -3.9712164625333,
+          "left": -14.1,
+          "bottom": 6.04194393581798,
+          "right": 9.65276462298707
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 104423,
+      "location": {
+        "page": "37",
+        "bounds": {
+          "top": -7.82081932029865,
+          "left": -13.6271734882438,
+          "bottom": 7.566048224082,
+          "right": 14.95
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 77062,
+      "location": {
+        "page": "37",
+        "bounds": {
+          "top": 6.25,
+          "left": 3.125,
+          "bottom": 6.625,
+          "right": 3.535
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101695,
+      "location": {
+        "page": "39",
+        "bounds": {
+          "top": 2.25,
+          "left": -6.5,
+          "bottom": 9.25,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 81486,
+      "location": {
+        "page": "40",
+        "bounds": {
+          "top": 0,
+          "left": 10,
+          "bottom": 10,
+          "right": 20
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 85180,
+      "location": {
+        "page": "46",
+        "bounds": {
+          "top": 1.42000000000002,
+          "left": 10.3,
+          "bottom": 4.625,
+          "right": 19.68
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 101895,
+      "location": {
+        "page": "47",
+        "bounds": {
+          "top": 2.25000000000005,
+          "left": -6.5,
+          "bottom": 9.25000000000005,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102725,
+      "location": {
+        "page": "63",
+        "bounds": {
+          "top": 4.92000000000002,
+          "left": 1.43,
+          "bottom": 5.29777752346465,
+          "right": 2.02
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 102571,
+      "location": {
+        "page": "63",
+        "bounds": {
+          "top": 2.25000000000005,
+          "left": -6.5,
+          "bottom": 9.25000000000005,
+          "right": 7.5
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 56876,
+      "location": {
+        "page": "83",
+        "bounds": {
+          "top": -0.03999999999996,
+          "left": 0,
+          "bottom": 9.96000000000004,
+          "right": 20
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 99558,
+      "location": {
+        "page": "90",
+        "bounds": {
+          "top": 5.80000000000008,
+          "left": 14.17,
+          "bottom": 8.34000000000004,
+          "right": 19.57
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 99182,
+      "location": {
+        "page": "90",
+        "bounds": {
+          "top": 0.47277777777749,
+          "left": 9.88484306216666,
+          "bottom": 10.4727777777775,
+          "right": 29.8848430621667
+        }
+      },
+      "label": "Unlabeled"
+    },
+    {
+      "id": 58085,
+      "location": {
+        "page": "93",
+        "bounds": {
+          "top": 0.01207588145967,
+          "left": 0.01207588145962,
+          "bottom": 9.98792411854043,
+          "right": 19.9879241185404
+        }
+      },
+      "label": "Unlabeled"
+    }
+  ],
+  "oversetText": [
+    {
+      "id": 100160,
+      "location": {
+        "page": "4",
+        "bounds": {
+          "top": -0.28612648010254,
+          "left": 9.94,
+          "bottom": 3.5,
+          "right": 13.94
+        }
+      },
+      "oversetCharacters": 371,
+      "label": "Unlabeled"
+    },
+    {
+      "id": 85330,
+      "location": {
+        "page": "42",
+        "bounds": {
+          "top": 3.38000000000001,
+          "left": 11.5560206721565,
+          "bottom": 14.3894458174511,
+          "right": 13.9989793589088
+        }
+      },
+      "oversetCharacters": 570,
+      "label": "Unlabeled"
+    }
+  ],
+  "unplacedImages": [
+    {
+      "name": "GenAIImage_27980529-37fb-4085-8c79-e33292b34c39_Modified_17418939862868975.jpeg",
+      "filePath": "C:\\Users\\devin\\Documents\\InDesign GenAI Assets\\GenAIImage_27980529-37fb-4085-8c79-e33292b34c39_Modified_17418939862868975.jpeg",
+      "status": "MISSING"
+    }
+  ],
+  "summary": {
+    "totalIssues": 133,
+    "pagesWithIssues": [
+      "1",
+      "2",
+      "3",
+      "6",
+      "7",
+      "4",
+      "8",
+      "9",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "23",
+      "27",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "39",
+      "40",
+      "42",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "63",
+      "83",
+      "90",
+      "93"
+    ]
+  }
+}

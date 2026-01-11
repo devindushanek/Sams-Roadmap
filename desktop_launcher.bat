@@ -1,0 +1,6 @@
+@echo off
+echo Switching to Project Directory...
+cd /d "c:\Users\devin\Documents\Professional\DevLabs\AI Agent Workspace"
+
+echo Launching App...
+call launch_app.bat
